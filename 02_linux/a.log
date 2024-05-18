@@ -1,0 +1,60 @@
+execve("./a", ["./a"], 0x7ffe10883580 /* 106 vars */) = 0
+brk(NULL)                               = 0x55e63793d000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffec1b501d0) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5ea4d4a000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/glibc-hwcaps/x86-64-v3/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/glibc-hwcaps/x86-64-v3", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/glibc-hwcaps/x86-64-v2/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/glibc-hwcaps/x86-64-v2", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/haswell/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/haswell/x86_64", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/haswell/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/haswell", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/x86_64", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/tls", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/haswell/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/haswell/x86_64", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/haswell/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/haswell", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/x86_64/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib/x86_64", 0x7ffec1b4f3f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/home/lexer/.wasmedge/lib/libc.so.6", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/lexer/.wasmedge/lib", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=67603, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 67603, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f5ea4d39000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\226 \25\252\235\23<l\274\3731\3540\5\226\327"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f5ea4b10000
+mprotect(0x7f5ea4b38000, 2023424, PROT_NONE) = 0
+mmap(0x7f5ea4b38000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f5ea4b38000
+mmap(0x7f5ea4ccd000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f5ea4ccd000
+mmap(0x7f5ea4d26000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x7f5ea4d26000
+mmap(0x7f5ea4d2c000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f5ea4d2c000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f5ea4b0d000
+arch_prctl(ARCH_SET_FS, 0x7f5ea4b0d740) = 0
+set_tid_address(0x7f5ea4b0da10)         = 19298
+set_robust_list(0x7f5ea4b0da20, 24)     = 0
+rseq(0x7f5ea4b0e0e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f5ea4d26000, 16384, PROT_READ) = 0
+mprotect(0x55e636039000, 4096, PROT_READ) = 0
+mprotect(0x7f5ea4d84000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f5ea4d39000, 67603)           = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x7), ...}, AT_EMPTY_PATH) = 0
+getrandom("\xfd\xcd\x4e\x84\x53\x59\x7f\x17", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55e63793d000
+brk(0x55e63795e000)                     = 0x55e63795e000
+write(1, "Hello world\n", 12)           = 12
+exit_group(0)                           = ?
++++ exited with 0 +++
