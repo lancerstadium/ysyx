@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./static/css/base.css" rel="stylesheet">
+    <link href="./static/css/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.font.im/css?family=Source+Serif+Pro%7CLato%7CInconsolata" rel="stylesheet"
+        type="text/css">
+    <title> slide </title>
+    <!-- browser favicon -->
+    <link rel="shortcut icon" href="./static/img/favicon.png">
+    <style>
+        .font-sans {
+            font-family: 'Lato', 'SimHei', 'STHeiti', 'SimHei', 'Serif';
+        }
+
+        .font-serif {
+            font-family: 'Source Serif Pro', 'Songti SC', 'SimSun', 'Serif', serif;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="https://jyywiki.cn/static/katex/katex.min.css">
+    <script defer src="https://jyywiki.cn/static/katex/katex.min.js"></script> -->
+    <link rel="stylesheet" href="./static/katex/katex.min.css">
+    <script defer src="./static/katex/katex.min.js"></script>
+    <!-- <script defer src="https://jyywiki.cn/static/katex/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+        crossorigin="anonymous"></script> -->
+    <script defer src="./static/katex/auto-render.min.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                // customised options
+                // &#8226; auto-render specific keys, e.g.:
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                // &#8226; rendering keys, e.g.:
+                throwOnError: false
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="./static/reveal/reveal.css">
+    <link rel="stylesheet" href="./static/reveal/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="./static/jyy/jyy.css">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <div class="reveal">
+        <div class="slides">
+            <section><section><div class="center middle"><div style="width:100%"><div><h1 id="linux" class="text-2xl mt-2 font-sans">Linux 工具使用</h1>
+<hr/>
+
+<blockquote>
+<p class="font-serif my-1"><a href="https://github.com/lancerstadium">lancerstadium</a></p>
+</blockquote></div></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="_1" class="text-2xl mt-2 font-sans">总览</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">命令</th>
+<th style="text-align: center;">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">vim</td>
+<td style="text-align: center;">文本编辑神器</td>
+</tr>
+<tr>
+<td style="text-align: center;">tmux</td>
+<td style="text-align: center;">分屏神器</td>
+</tr>
+</tbody>
+</table></div></div></div></section></section><section><section><div><h2 id="vim" class="text-xl mt-2 pb-2 font-sans">vim</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8"><code>vim</code> 常用指令：</li>
+</ul>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>vim<span class="w">                 </span><span class="c1"># 打开vim</span>
+vim<span class="w"> </span><span class="o">[</span>file<span class="o">]</span><span class="w">          </span><span class="c1"># 打开并编辑文件</span>
+</code></pre></div></div></section></section><section><section><div><h2 id="tmux" class="text-xl mt-2 pb-2 font-sans">tmux</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8"><code>tmux</code> 常用快捷键：</li>
+</ul>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>Ctrl + b + "        # 创建上下分割的窗口
+Ctrl + b + ,        # 创建左右分割的窗口
+Ctrl + b + up       # 切换到上窗口
+Ctrl + b + down     # 切换到下窗口
+Ctrl + b + left     # 切换到左窗口
+Ctrl + b + right    # 切换到右窗口
+</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="thanks" class="text-2xl mt-2 font-sans">Thanks!</h1>
+<hr/>
+
+<ul class="list-disc font-serif">
+<li class="ml-8">如有问题欢迎提issue！</li>
+</ul></div></div></div></section></section>
+        </div>
+    </div>
+
+    <script src="./static/reveal/reveal.js"></script>
+
+    <script>
+        Reveal.initialize({
+
+            width: 1024, height: 768,
+
+            slideNumber: 'c/t',
+            controlsTutorial: false,
+            progress: false,
+            hash: true,
+            center: false,
+            autoAnimateUnmatched: true,
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.3,
+            transitionSpeed: 'fast'
+        });
+    </script>
+</body>
+
+</html>
