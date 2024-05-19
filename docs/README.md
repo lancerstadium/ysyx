@@ -4,11 +4,13 @@
 
 
 > Markdown:
-> 1. [幻灯片示例](./slide00/slide.md)
-> 2. [Linux 工具使用](./slide01/slide.md)
-> 3. [FPU 拓展指令与协处理器](./slide02/slide.md)
+> - [幻灯片示例](./slide00/slide.md)
+> - [Linux 工具使用](./slide01/slide.md)
+> - [C 语言学习](./slide02/slide.md)
+> - [FPU 拓展指令与协处理器](./slidefpu/slide.md)
 
 > Slides：
-> 1. [幻灯片示例](./slide00/index.html)
-> 2. [Linux 工具使用](./slide01/index.html)
-> 3. [FPU 拓展指令与协处理器](./slide02/index.html)
+> - [幻灯片示例](./slide00/index.html)
+> - [Linux 工具使用](./slide01/index.html)
+> - [C 语言学习](./slide02/index.html)
+> - [FPU 拓展指令与协处理器](./slidefpu/index.html)

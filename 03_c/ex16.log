@@ -1,0 +1,20 @@
+==70026== Memcheck, a memory error detector
+==70026== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==70026== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==70026== Command: ./ex16
+==70026== 
+==70026== 
+==70026== HEAP SUMMARY:
+==70026==     in use at exit: 33 bytes in 2 blocks
+==70026==   total heap usage: 5 allocs, 3 frees, 1,093 bytes allocated
+==70026== 
+==70026== LEAK SUMMARY:
+==70026==    definitely lost: 24 bytes in 1 blocks
+==70026==    indirectly lost: 9 bytes in 1 blocks
+==70026==      possibly lost: 0 bytes in 0 blocks
+==70026==    still reachable: 0 bytes in 0 blocks
+==70026==         suppressed: 0 bytes in 0 blocks
+==70026== Rerun with --leak-check=full to see details of leaked memory
+==70026== 
+==70026== For lists of detected and suppressed errors, rerun with: -s
+==70026== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
