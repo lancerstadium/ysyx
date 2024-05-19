@@ -9,5 +9,5 @@ push:
 	./commit.sh
 
 
-sfresh:
+doc:
 	./freshslide.sh
