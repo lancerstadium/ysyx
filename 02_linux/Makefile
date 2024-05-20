@@ -9,6 +9,9 @@ clock:
 cpu:
 	watch -n 1 "cat /proc/cpuinfo | grep MHz | awk '{print \$1 NR \$3 \$4 \$2}'"
 
+rv32:
+	riscv64-linux-gnu-gcc-12 -march=rv32i -mabi=ilp32 --static -nostdlib -ffreestanding -Wl,-Ttext=0 -o2 -o emu emu.c
+
 
 clean:
 	rm -rf a
