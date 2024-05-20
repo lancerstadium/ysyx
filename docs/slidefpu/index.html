@@ -70,7 +70,7 @@
 <p class="font-serif my-1">2024/05/19</p>
 </blockquote></div></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="1" class="text-2xl mt-2 font-sans">1 相关概念</h1></div></div></div></section><section><div><h2 id="11" class="text-xl mt-2 pb-2 font-sans">1.1 协处理器</h2>
 <p class="font-serif my-1">协处理器基本架构如下图所示：
-<img alt="协处理器" src="./static/img/581cdee635fa4f639aaa5106e9938d17.png"/></p></div></section><section><div><h3 id="111-cu">1.1.1 CU</h3>
+<img alt="协处理器" src="./static/img/52607e8f0ac04e03a0a81515a8a0bc15.png"/></p></div></section><section><div><h3 id="111-cu">1.1.1 CU</h3>
 <p class="font-serif my-1">CU（<em>Control Unit</em>）：<strong>控制单元</strong>，负责指导和协调整个处理器的工作流程。CU解码指令、控制数据流、管理寄存器和执行单元之间的数据传输，确保指令按照正确的顺序和时间执行</p></div></section><section><div><h3 id="112-au">1.1.2 AU</h3>
 <p class="font-serif my-1">AU（<em>Arithmetic Unit</em>）：<strong>算术单元</strong>，负责执行算术运算，包括加法、减法、乘法、除法等数值计算操作。AU通常包括整数运算单元（Integer Unit）和浮点运算单元（Floating Point Unit），用于处理整数和浮点数的运算。</p></div></section><section><div><h3 id="113-fpu">1.1.3 FPU</h3>
 <p class="font-serif my-1">FPU（<em>Floating Point Unit</em>）：<strong>浮点运算单元</strong>，是处理器中的一个专门模块，用于执行浮点数的运算操作。FPU 负责执行诸如加法、减法、乘法、除法以及其他浮点数运算的操作。</p></div></section><section><div><h3 id="114-npu">1.1.4 NPU</h3>
@@ -78,9 +78,8 @@
 <p class="font-serif my-1">DDR（<em>Double Data Rate</em>）是一种内存类型，它在每个时钟周期传输两次数据，从而实现了比传统内存更高的数据传输速率。DDR 内存通常用于计算机系统中作为主存储器，用于存储程序和数据。DDR 内存的速度通常以频率（例如 DDR3-1600、DDR4-3200）来表示，表示每秒传输的数据次数。</p>
 <p class="font-serif my-1">CAM（<em>Content-Addressable Memory</em>）是一种具有快速查找功能的存储器，它能够根据数据内容来查找存储的数据，而不是根据地址。CAM 内存通常用于高速缓存、路由表和网络设备中的数据查找操作，以提高查找速度和效率。</p>
 <p class="font-serif my-1">HDMI（<em>High-Definition Multimedia Interface</em>）是一种数字化音视频接口标准，用于传输高清晰度音视频信号。HDMI 接口通常用于连接电视、显示器、投影仪、游戏机、计算机等设备，以实现高质量的音视频传输和显示。HDMI 接口支持多种分辨率和音频格式，并可以通过单一的电缆传输音视频信号和其他数据。</p></div></section><section><div><h2 id="12-risc-v" class="text-xl mt-2 pb-2 font-sans">1.2 RISC-V 指令集</h2>
-<p class="font-serif my-1">RISC-V 是一款开源指令集，其设计简洁高效模块化，适用于各种应用场景，并有良好的可移植性和可扩展性。</p>
-<p class="font-serif my-1">RISC-V 指令集包括基本指令和拓展指令，这些指令被设计用于执行各种计算任务和操作。</p>
-<p class="font-serif my-1"><img alt="RISC-V指令集" src="./static/img/31cf49024cef40148ee119da0de8bc9e.png"/></p></div></section><section><div><h3 id="121">1.2.1 基本指令</h3>
+<p class="font-serif my-1">RISC-V 是一款开源指令集，其设计简洁高效模块化，适用于各种应用场景，并有良好的可移植性和可扩展性。RISC-V 指令集包括基本指令和拓展指令，这些指令被设计用于执行各种计算任务和操作。</p>
+<p class="font-serif my-1"><img alt="RISC-V指令集" src="./static/img/3cdfb1ed08c644e5a563f339edcaf4a7.png"/></p></div></section><section><div><h3 id="121">1.2.1 基本指令</h3>
 <p class="font-serif my-1">整数指令集 I 包括算术、逻辑、分支、访存（访问内存）指令等，已经可以实现一个完整的软件栈。根据寄存器位宽和地址空间不同，其分为32、64、128位三种不同类型。</p></div></section><section><div><h3 id="122">1.2.2 拓展指令</h3>
 <p class="font-serif my-1">若CPU有更多的功能要求，可以在基础指令的基础上组装扩展指令，扩展指令主要有以下这些：
 - M：乘除法、取模求余指令
@@ -96,13 +95,13 @@
 - S Type：用于内存store操作 （Store）
 - B Type：用于条件跳转操作 （Branch）
 - U Type：用于长立即数操作
-- J Type：用于无条件跳转操作 （Jump）</p>
-<p class="font-serif my-1"><img alt="指令格式" src="./static/img/5f1d713749a545f8a96a1f6a23d3c86b.png"/></p></div></section><section><div><h2 id="13-e203" class="text-xl mt-2 pb-2 font-sans">1.3 蜂鸟 E203</h2>
+- J Type：用于无条件跳转操作 （Jump）</p></div></section><section><div><h3 id="123">1.2.3 指令格式</h3>
+<p class="font-serif my-1"><img alt="指令格式" src="./static/img/72b083c2cb2444fea6e16a6fdd973a9a.png"/></p></div></section><section><div><h2 id="13-e203" class="text-xl mt-2 pb-2 font-sans">1.3 蜂鸟 E203</h2>
 <p class="font-serif my-1">蜂鸟 E203 是一款基于 RISC-V 开源指令集架构的处理器，其 CPU 核心通过实现 RISC-V 指令集，实现了高性能、低功耗、可拓展的处理能力，适用于各种嵌入式系统和物联网设备。</p>
-<p class="font-serif my-1"><img alt="蜂鸟E203" src="./static/img/0bf6dca39bec44d78875b78bb0eff6cf.png"/></p>
+<p class="font-serif my-1"><img alt="蜂鸟E203" src="./static/img/bbc2cb2125914d4e808165374d864e6a.png"/></p></div></section><section><div><h3 id="131">1.3.1 总线架构</h3>
 <p class="font-serif my-1">E203 使用了 <strong>nice 总线</strong>作为内部总线架构，nice 总线具有低延迟、高吞吐量的特点，能够有效地连接 CPU、内存、外设等各个部件，实现指令或数据的快速传输和处理。</p>
-<p class="font-serif my-1">E203 支持<strong>指令拓展功能</strong>，可以根据具体的应用需求扩展和优化指令集，以提高处理器的性能和功能。通过指令拓展功能，可以实现针对特定应用场景（如浮点并行加速）的优化指令，加速特定算法和操作的执行，从而提高整体系统的性能和效率。</p></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="2" class="text-2xl mt-2 font-sans">2 协处理流程</h1>
-<p class="font-serif my-1">蜂鸟 E203 通过 nice 总线中的通道将主处理器上的R型拓展指令传输到协处理器，协处理器执行拓展指令，数据写入DDR，并将处理结果传回主处理器。</p></div></div></div></section><section><div><h2 id="21" class="text-xl mt-2 pb-2 font-sans">2.1 基本流程</h2>
+<p class="font-serif my-1">E203 支持<strong>指令拓展功能</strong>，可以根据具体的应用需求扩展和优化指令集，以提高处理器的性能和功能。通过指令拓展功能，可以实现针对特定应用场景（如浮点并行加速）的优化指令，加速特定算法和操作的执行，从而提高整体系统的性能和效率。</p></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="2" class="text-2xl mt-2 font-sans">2 协处理流程</h1></div></div></div></section><section><div><h2 id="21" class="text-xl mt-2 pb-2 font-sans">2.1 基本流程</h2>
+<p class="font-serif my-1">蜂鸟 E203 通过 nice 总线中的通道将主处理器上的R型拓展指令传输到协处理器，协处理器执行拓展指令，数据写入DDR，并将处理结果传回主处理器。</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="n">stateDiagram</span>
 
 <span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="err">主处理器</span><span class="w"> </span><span class="p">{</span>
@@ -126,18 +125,17 @@
 <span class="w">        </span><span class="kt">Data</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">MReq</span>
 <span class="w">        </span><span class="n">Res</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="n">ISign</span>
 <span class="w">    </span><span class="p">}</span>
-</code></pre></div>
-
+</code></pre></div></div></section><section><div><h3 id="211">2.1.1 通道</h3>
 <ol>
 <li class="ml-8">请求通道【主-&gt;协】（<em>Request Channel</em>）：主处理器处于流水线 EXU 级时解码到 R型拓展指令，向协处理器发送请求，并将指令的编码信息和源操作数传输到协处理器。</li>
 <li class="ml-8">反馈通道【协-&gt;主】（<em>Response Channel</em>）：协处理器执行拓展指令，执行完毕传输回主处理器反馈结果。</li>
 <li class="ml-8">存储器请求通道【协-&gt;主】（<em>Memory Request Channel</em>）：协处理器向主处理器发送存储器读写请求，将运算结果传输到存储器。</li>
 <li class="ml-8">存储器反馈通道【主-&gt;协】（<em>Memory Response Channel</em>）：主处理器向协处理器发送存储器读写结果。</li>
-</ol>
+</ol></div></section><section><div><h3 id="212">2.1.2 通道参数</h3>
 <blockquote>
 <p class="font-serif my-1">通道参数：
-<img alt="通道参数" src="./static/img/fdbee67c44e34d53a742521a26fb2eb9.png"/></p>
-</blockquote></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="3" class="text-2xl mt-2 font-sans">3 项目说明</h1>
+<img alt="通道参数" src="./static/img/b0a6d0f73ac74cfc8c4bdd1b00688483.png"/></p>
+</blockquote></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="3" class="text-2xl mt-2 font-sans">3 项目说明</h1></div></div></div></section><section><div><h2 id="31" class="text-xl mt-2 pb-2 font-sans">3.1 项目目标</h2>
 <p class="font-serif my-1">项目目标：通过给蜂鸟 E203 添加协处理器，设计 R 型拓展指令与 NMS 算法，实现对图像目标检测算法的加速。</p>
 <p class="font-serif my-1">项目细则：
 1. 软件部分：
@@ -151,7 +149,7 @@
    4. 硬件上版验证
 3. 对比实验：
    1. 数据集
-   2. 评价指标</p></div></div></div></section><section><div><h2 id="31" class="text-xl mt-2 pb-2 font-sans">3.1 软件部分</h2></div></section><section><div><h3 id="311-nice">3.1.1 NICE指令格式</h3>
+   2. 评价指标</p></div></section><section><div><h2 id="32" class="text-xl mt-2 pb-2 font-sans">3.2 软件部分</h2></div></section><section><div><h3 id="321-nice">3.2.1 NICE指令格式</h3>
 <p class="font-serif my-1">为了方便用户扩展自定义指令，RISC-V ISA在32位指令中预定义了4组自定义指令类型（Custom-0、Custom-1、Custom-2、Custom-3），每组都有自己的操作码。</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>Custom-0:
 ........ ........ ........ .00010..
@@ -161,10 +159,9 @@ Custom-2:
 ........ ........ ........ .10110..
 Custom-3:
 ........ ........ ........ .11110..
-</code></pre></div>
-
+</code></pre></div></div></section><section><div><h3 id="322">3.2.2 自定义指令设计</h3>
 <p class="font-serif my-1">在 E203 Core 中，用户可以使用这 4 个自定义指令组（Custom-0、Custom-1、Custom-2、Custom-3）进行 NICE 扩展，下图显示了 NICE 指令格式的详细信息：
-<img alt="RISC-V指令集" src="./static/img/08bfd949a0124f12bca775009b0b69e2.png"/></p>
+<img alt="RISC-V指令集" src="./static/img/749675d4c55d42dabdb99c79932b03e9.png"/></p>
 <table>
 <thead>
 <tr>
@@ -206,7 +203,7 @@ Custom-3:
 <td style="text-align: center;">自定义 7 位操作码</td>
 </tr>
 </tbody>
-</table></div></section><section><div><h3 id="312-nice">3.1.2 NICE指令设计</h3>
+</table></div></section><section><div><h3 id="323-nice">3.2.3 NICE指令设计</h3>
 <table>
 <thead>
 <tr>
@@ -247,7 +244,7 @@ Custom-3:
 <td style="text-align: center;"/>
 </tr>
 </tbody>
-</table></div></section><section><div><h3 id="313">3.1.3 具体代码</h3>
+</table></div></section><section><div><h3 id="324">3.2.4 具体代码</h3>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="c1">// insn.h</span>
 <span class="cp">#ifndef __INSN_H__</span>
 <span class="cp">#define __INSN_H__</span>
