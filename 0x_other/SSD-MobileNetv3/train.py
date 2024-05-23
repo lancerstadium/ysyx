@@ -6,7 +6,6 @@ from tqdm import tqdm
 from model import mobilenet_v3_large, mobilenet_v3_small, MobileNetV3     # 导入 mobilenet v3
 from torch.utils.data import DataLoader
 from torchsummary import summary
-#from torchvision.models import MobileNetV3   # 查看预训练模型
  
 # 打印网络信息
 def net_info(net):
@@ -26,11 +25,11 @@ def train(net: MobileNetV3, batch_size=16,lr=0.01,epochs=10,device=None):
                                    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])}
  
     # 载入训练集
-    train_dataset = datasets.CIFAR10(root='./data', train=True,transform=data_transform['train'], download=True)  # 下载数据集
+    train_dataset = datasets.CIFAR10(root='./data', train=True,transform=data_transform['train'])  # 下载数据集
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)  # 读取数据集
  
     # 载入测试集
-    test_dataset = datasets.CIFAR10(root='./data', train=False,transform=data_transform['test'], download=True)  # 下载数据集
+    test_dataset = datasets.CIFAR10(root='./data', train=False,transform=data_transform['test'])  # 下载数据集
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)  # 读取数据集
  
     # 样本个数
@@ -108,12 +107,12 @@ def train_ssd_mobilenet_v3_large():
 def train_ssd_mobilenet_v3_small():
     # 超参数
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    BATCH_SIZE = 8
+    BATCH_SIZE = 16
     EPOCHS = 2
     LEARNING_RATE = 0.0001
  
     # mobilenet v3 迁移学习
-    net = mobilenet_v3_small(num_classes=5)
+    net = mobilenet_v3_small(num_classes=10)
     pre_model = torch.load('./pre/mobilenet_v3_small-047dcff4.pth')        # 加载预训练模型
     pre_dict = {k:v for k,v in pre_model.items() if 'classifier' not in k}      # 删除最后的全连接层
     missing_keys,unexpected_keys = net.load_state_dict(pre_dict,strict=False)   # 载入除了最后一层

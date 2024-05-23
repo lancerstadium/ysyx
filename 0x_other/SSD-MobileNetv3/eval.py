@@ -9,7 +9,11 @@ from model import mobilenet_v3_large, mobilenet_v3_small
 from torchvision.transforms import transforms
 from torch.utils.data import DataLoader
 import torchvision
-
+from torchsummary import summary
+ 
+# 打印网络信息
+def net_info(net):
+    summary(net, (3, 224, 224))
 
 def eval_ssd_mobilenet_v3_large(path='./MobileNetV3.pth'):
     # 获取 label
@@ -75,7 +79,7 @@ def eval_ssd_mobilenet_v3_small(path='./MobileNetV3.pth'):
     
     # 加载模型
     DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    net = mobilenet_v3_small(num_classes=5)
+    net = mobilenet_v3_small(num_classes=10)
     net.load_state_dict(torch.load(path))
     net.to(DEVICE)
     
