@@ -24,13 +24,38 @@ VerilatedContext* contextp;
 Vtop* top;
 VerilatedVcdC* tfp;
 
-vluint64_t main_time = 0;       // current simulation time
-double sc_time_stamp() {
-    return main_time;
+
+void single_cycle_vcd_record() {
+    tfp->dump(contextp->time());
+    contextp->timeInc(1);
 }
 
-uint64_t ref_regs[32];
-void hit_exit(int status) {}
+void single_cycle_bit_add(int i) {
+    int a = rand() & 1;
+    int b = rand() & 1;
+    top->a = a;
+    top->b = b;
+    top->eval();                    // Evaluate model
+    printf("[%3d]  a = %d, b = %d, f = %d\n", i, a, b, top->f);
+    assert(top->f == (a ^ b));
+    single_cycle_vcd_record();
+}
+
+void single_cycle_light() {
+    top->clk = 1;
+    top->eval();
+    single_cycle_vcd_record();
+    top->clk = 0;
+    top->eval();
+    single_cycle_vcd_record();
+}
+
+void reset_light(int n) {
+    top->rst = 1;
+    while (n-- > 0) single_cycle_light();
+    top->rst = 0;
+}
+
 
 
 // =================================================== //
@@ -53,19 +78,11 @@ int main(int argc, char **argv, char **env) {
     tfp->open("wave.vcd");              // VCD file path
     tfp->set_time_unit("ns");           // Set time unit to nanoseconds
     
-
+    reset_light(10);
     // Start simulation
     for (int i = 0; i < sim_steps; i++) {   // start until sim_step
-        int a = rand() & 1;
-        int b = rand() & 1;
-        top->a = a;
-        top->b = b;
-        top->eval();                    // Evaluate model
-        printf("[%3d]  a = %d, b = %d, f = %d\n", i, a, b, top->f);
-        assert(top->f == (a ^ b));
-
-        tfp->dump(contextp->time());    // Save waveforms
-        contextp->timeInc(1);           // Increment time
+        // single_cycle_bit_add(i);
+        single_cycle_light();
     }
 
     // VCD wave dump
