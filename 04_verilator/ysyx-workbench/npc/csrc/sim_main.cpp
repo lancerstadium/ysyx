@@ -42,13 +42,40 @@ int main(int argc, char **argv, char **env) {
     contextp->commandArgs(argc, argv);
 
     top = new Vtop{contextp};
+    int sim_steps = 20;  // Set the number of simulation steps
 
-    // VCD wave setup
-    Verilated::traceEverOn(true);
-    tfp = new VerilatedVcdC;
+    // VCD wave initialization
+    tfp = new VerilatedVcdC;            // Initialize VCD pointer
+    contextp->traceEverOn(true);        // Enable tracing
     top->trace(tfp, 0);
-    tfp->open("wave.vcd");
 
+    // VCD wave setting
+    tfp->open("wave.vcd");              // VCD file path
+    tfp->set_time_unit("ns");           // Set time unit to nanoseconds
+    
+
+    // Start simulation
+    for (int i = 0; i < sim_steps; i++) {   // start until sim_step
+        int a = rand() & 1;
+        int b = rand() & 1;
+        top->a = a;
+        top->b = b;
+        top->eval();                    // Evaluate model
+        printf("[%3d]  a = %d, b = %d, f = %d\n", i, a, b, top->f);
+        assert(top->f == (a ^ b));
+
+        tfp->dump(contextp->time());    // Save waveforms
+        contextp->timeInc(1);           // Increment time
+    }
+
+    // VCD wave dump
+    tfp->close();
+    // End of simulation
+    top->final();
+
+    delete tfp;
+    delete top; 
+    delete contextp;
 
     return 0;
 }
