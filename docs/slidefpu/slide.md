@@ -368,6 +368,7 @@ __STATIC_FORCEINLINE uint32_t custom_insn6(uint32_t rs1, uint32_t rs2) {
 > 4. [NucleiStudio 和 vivado 软硬件联合仿真](https://www.rvmcu.com/community-topic-id-386.html)
 > 5. [蜂鸟 E203 介绍](https://doc.nucleisys.com/hbirdv2/overview/overview.html)
 > 6. [纯C实现NMS算法 | CSDN](https://blog.csdn.net/qq_41384531/article/details/126183162)
+> 7. [蜂鸟E203协处理器指令集参考](https://www.rvmcu.com/community-topic-id-386.html)
 
 ---
 
