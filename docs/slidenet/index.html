@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./static/css/base.css" rel="stylesheet">
+    <link href="./static/css/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.font.im/css?family=Source+Serif+Pro%7CLato%7CInconsolata" rel="stylesheet"
+        type="text/css">
+    <title> slide </title>
+    <!-- browser favicon -->
+    <link rel="shortcut icon" href="./static/img/favicon.png">
+    <style>
+        .font-sans {
+            font-family: 'Lato', 'SimHei', 'STHeiti', 'SimHei', 'Serif';
+        }
+
+        .font-serif {
+            font-family: 'Source Serif Pro', 'Songti SC', 'SimSun', 'Serif', serif;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="https://jyywiki.cn/static/katex/katex.min.css">
+    <script defer src="https://jyywiki.cn/static/katex/katex.min.js"></script> -->
+    <link rel="stylesheet" href="./static/katex/katex.min.css">
+    <script defer src="./static/katex/katex.min.js"></script>
+    <!-- <script defer src="https://jyywiki.cn/static/katex/auto-render.min.js"
+        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+        crossorigin="anonymous"></script> -->
+    <script defer src="./static/katex/auto-render.min.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                // customised options
+                // &#8226; auto-render specific keys, e.g.:
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                // &#8226; rendering keys, e.g.:
+                throwOnError: false
+            });
+        });
+    </script>
+
+    <link rel="stylesheet" href="./static/reveal/reveal.css">
+    <link rel="stylesheet" href="./static/reveal/theme/simple.css" id="theme">
+    <link rel="stylesheet" href="./static/jyy/jyy.css">
+
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <div class="reveal">
+        <div class="slides">
+            <section><section><div class="center middle"><div style="width:100%"><div><h1 id="_1" class="text-2xl mt-2 font-sans">神经网络加速器设计</h1>
+<hr/>
+
+<blockquote>
+<p class="font-serif my-1"><a href="https://github.com/LancerStadium">LancerStadium</a></p>
+</blockquote></div></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="1" class="text-2xl mt-2 font-sans">1 方案设计</h1></div></div></div></section></section><section><section><div><h2 id="11" class="text-xl mt-2 pb-2 font-sans">1.1 加速指标</h2>
+<p class="font-serif my-1">对于神经网络加速器来说，需要考虑的主要指标有：
++ 并行度：与计算速度和资源占用成正比；
++ 计算速度：与并行度和资源占用成正比；
++ 资源占用：与并行度和计算速度成正比；</p>
+<hr/>
+
+<p class="font-serif my-1"><strong>目标</strong>：最大化计算速度，最小化资源占用。</p></div></section><section><div><h2 id="12" class="text-xl mt-2 pb-2 font-sans">1.2 加速模拟</h2>
+<p class="font-serif my-1">加速器验证思路：
+1. 使用<code>Python/C++</code>编写模块相同功能函数；
+2. 为硬件模块与软件函数搭建对应<code>testbench</code>，记录模拟结果；
+3. 对比两者输出数据是否一致（随机抽样验证）；
+4. 若发现错误，修改模块，并重新验证。</p></div></section><section><div><h2 id="13" class="text-xl mt-2 pb-2 font-sans">1.3 加速技巧</h2></div></section><section><div><h2 id="14" class="text-xl mt-2 pb-2 font-sans">1.4 数值量化</h2>
+<p class="font-serif my-1">半精度浮点数<code>float16</code>：常用于实现加速器中的浮点数运算。其结构：
++ 符号S：1  bit
++ 指数E：5  bit
++ 尾数M：10 bit</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    |S|   E   |     M     |
+  16| |14   10|9         0|
+
+    FP16 = (-1)^S * 1.M * 2^(E - 15) 
+    Range: [5.96*10^-8, 6.55*10^4]
+</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="2" class="text-2xl mt-2 font-sans">2 模块加速</h1></div></div></div></section><section><div><h2 id="21-conv" class="text-xl mt-2 pb-2 font-sans">2.1 Conv模块加速</h2>
+<p class="font-serif my-1">对卷积层进行模块分解：
++ 顶层：<code>ConvLayer</code>卷积层模块
++ 激活函数：<code>Tanh</code>激活函数、 <code>Softmax</code>激活函数
++ 池化层：<code>AvgPool</code>平均池化层
++ 算子：
+  + 浮点：<code>mulf16</code>半精度浮点乘、<code>addf16</code>半精度浮点加</p></div></section><section data-auto-animate><div><h3 id="211-filter-layer">2.1.1 Filter Layer</h3>
+<p class="font-serif my-1">一个卷积层有多个卷积核（<em>Filter</em>），image输入到不同的核得到不同的特征（<em>Feature</em>），<strong>自顶向下</strong>先观察<code>Multi Filter Layer</code>，其输入图像和六个卷积核，输出卷积结果。</p>
+<p class="font-serif my-1">网络<code>ConvLayerMulti</code>层输入矩阵规模：<code>image 32*32, filterSet 5*5</code></p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/2616df5688b4432fafb56b775a60ca34.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerMulti</code>层输入：</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    image:       1 *        32 * 32 *   16   = 16384  
+    filters:     6 *        5 * 5 *     16   = 2400
+    outputConv:  1 *        28 * 28 *   16   = 12544
+                 ^ channel  ^ scale     ^ bitwidth
+</code></pre></div>
+
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/1ce983c69055405e990f65d06babebb2.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">对于单个卷积核（<em>Filter</em>），再观察<code>Single Filter Layer</code>，其输入图像和单个卷积核，输出特征图（<em>Feature Map</em>）。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/68d7e00848a64363a117067538f16070.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerSingle</code>层输入：</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    image:       1 *        32 * 32 *   16   = 16384 
+    filters:     1 *        5 * 5 *     16   = 400
+    outputConv:  1 *        28 * 28 *   16   = 12544
+                 ^ channel  ^ scale     ^ bitwidth
+</code></pre></div>
+
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/1399533d5d42400facb1012d0165f498.png"/></p></div></section><section data-auto-animate><div><h3 id="212-convolution-unit">2.1.2 Convolution Unit</h3>
+<p class="font-serif my-1">一个卷积核（<em>Filter</em>）与一个输入图像（<em>Image</em>）进行卷积运算，得到特征图（<em>Feature Map</em>），这个过程通过<code>ConvUnit</code>模块实现。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="float-left" src="./static/img/a7b5e0b3039d468ab47657097f3b84ce.png"/>
+<img class="float-right" src="./static/img/24adb361760c47ef94aee9cc9a00438c.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1"><code>CU</code>模块循环使用<code>PE</code>模块实现一个窗口的卷积操作，并输出一个半精度浮点型（<em>FP16</em>）计算结果。<red>注意：循环使用<code>PE</code>牺牲了速度换面积。</red></p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/3178ff598dd74f1db21ef285e92a2afa.png"/></p></div></section><section data-auto-animate><div><h3 id="213-processing-element">2.1.3 Processing Element</h3>
+<p class="font-serif my-1">卷积进行的具体操作是<strong>点乘</strong>，这里本质上是浮点算子：<code>mulf16</code>乘、<code>addf16</code>加，这里通过<code>PE</code>模块实现。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="float-left" src="./static/img/9ca63155f316487e8e399a350727909e.png"/>
+<img class="float-right" src="./static/img/05306bfac14940c7bac4eae6284d05c2.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块：执行具体卷积操作，即权重与数据相乘后累加。添加<code>result_reg</code>，将电路从组合逻辑转化为时序逻辑，保证数据同步。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/3e5e2d659623410a949717fa71a9672f.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块代码演示：</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="k">module</span><span class="w"> </span><span class="n">PE</span><span class="p">(</span>
+<span class="w">    </span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">,</span>
+<span class="w">    </span><span class="n">fA</span><span class="p">,</span><span class="w"> </span><span class="n">fB</span><span class="p">,</span><span class="w"> </span><span class="n">res</span>
+<span class="p">);</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w">  </span><span class="c1">// 数据位宽</span>
+
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">;</span>
+<span class="w">    </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="n">DATA_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">fA</span><span class="p">,</span><span class="w"> </span><span class="n">fB</span><span class="p">;</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="n">DATA_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">res</span><span class="p">;</span>
+
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="n">DATA_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">mul_res</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="n">DATA_WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">add_res</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">// 1. 计算乘法结果</span>
+<span class="w">    </span><span class="n">mulf16</span><span class="w"> </span><span class="n">FMUL</span><span class="p">(.</span><span class="n">fA</span><span class="p">(</span><span class="n">fA</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">fB</span><span class="p">(</span><span class="n">fB</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">res</span><span class="p">(</span><span class="n">mul_res</span><span class="p">));</span>
+<span class="w">    </span><span class="c1">// 2. 计算累加结果</span>
+<span class="w">    </span><span class="n">addf16</span><span class="w"> </span><span class="n">FADD</span><span class="p">(.</span><span class="n">fA</span><span class="p">(</span><span class="n">fA</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">fB</span><span class="p">(</span><span class="n">fB</span><span class="p">),</span><span class="w"> </span><span class="p">.</span><span class="n">res</span><span class="p">(</span><span class="n">add_res</span><span class="p">));</span>
+
+<span class="w">    </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">rst</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">rst</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">'b1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">            </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">add_res</span><span class="p">;</span>
+<span class="w">        </span><span class="k">end</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="3" class="text-2xl mt-2 font-sans">3 项目概览</h1></div></div></div></section><section><div><h2 id="31" class="text-xl mt-2 pb-2 font-sans">3.1 项目目录</h2>
+<p class="font-serif my-1">参考如下<code>CNN</code>加速器目录：</p>
+<div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>.
+├── vivado_project          # 项目完整网络的vivado工程
+├── conv_code               # 不同并行度的卷积模块代码
+├── final_code              # 各模块以及网络顶层代码
+│   ├── Part1. Convolution
+│   ├── Part2. TanH Activation
+│   ├── Part3. Softmax Activation
+│   ├── Part4. Average Pooling
+│   ├── Part5. Intergration
+│   └── ...
+├── test_scripts            # 各个模块验证脚本
+│   ├── Test1. ANN Test
+│   ├── Test2. TanH Test
+│   ├── Test3. Text Files Test
+│   ├── Average Pooling Python Code
+│   ├── Convolution Python Code
+│   ├── Softmax Python Code
+│   └── ...
+├── results                 # 仿真截图，综合报告，验证数据表格
+├── weights                 # 卷积与全连接层权重和偏置数据
+├── hw_design.pdf           # 项目硬件设计文档
+└── README.md               # 项目介绍
+</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="thanks" class="text-2xl mt-2 font-sans">Thanks!</h1></div></div></div></section></section>
+        </div>
+    </div>
+
+    <script src="./static/reveal/reveal.js"></script>
+
+    <script>
+        Reveal.initialize({
+
+            width: 1024, height: 768,
+
+            slideNumber: 'c/t',
+            controlsTutorial: false,
+            progress: false,
+            hash: true,
+            center: false,
+            autoAnimateUnmatched: true,
+            autoAnimateEasing: 'ease-out',
+            autoAnimateDuration: 0.3,
+            transitionSpeed: 'fast'
+        });
+    </script>
+</body>
+
+</html>
