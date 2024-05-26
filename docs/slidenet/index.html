@@ -64,39 +64,77 @@
 <blockquote>
 <p class="font-serif my-1"><a href="https://github.com/LancerStadium">LancerStadium</a></p>
 </blockquote></div></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="1" class="text-2xl mt-2 font-sans">1 方案设计</h1></div></div></div></section></section><section><section><div><h2 id="11" class="text-xl mt-2 pb-2 font-sans">1.1 加速指标</h2>
-<p class="font-serif my-1">对于神经网络加速器来说，需要考虑的主要指标有：
-+ 并行度：与计算速度和资源占用成正比；
-+ 计算速度：与并行度和资源占用成正比；
-+ 资源占用：与并行度和计算速度成正比；</p>
+<p class="font-serif my-1">对于神经网络加速器来说，需要考虑的主要指标有：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">并行度：与计算速度和资源占用成正比；</li>
+<li class="ml-8">计算速度：与并行度和资源占用成正比；</li>
+<li class="ml-8">资源占用：与并行度和计算速度成正比；</li>
+</ul>
 <hr/>
 
 <p class="font-serif my-1"><strong>目标</strong>：最大化计算速度，最小化资源占用。</p></div></section><section><div><h2 id="12" class="text-xl mt-2 pb-2 font-sans">1.2 加速模拟</h2>
-<p class="font-serif my-1">加速器验证思路：
-1. 使用<code>Python/C++</code>编写模块相同功能函数；
-2. 为硬件模块与软件函数搭建对应<code>testbench</code>，记录模拟结果；
-3. 对比两者输出数据是否一致（随机抽样验证）；
-4. 若发现错误，修改模块，并重新验证。</p></div></section><section><div><h2 id="13" class="text-xl mt-2 pb-2 font-sans">1.3 加速技巧</h2></div></section><section><div><h2 id="14" class="text-xl mt-2 pb-2 font-sans">1.4 数值量化</h2>
-<p class="font-serif my-1">半精度浮点数<code>float16</code>：常用于实现加速器中的浮点数运算。其结构：
-+ 符号S：1  bit
-+ 指数E：5  bit
-+ 尾数M：10 bit</p>
+<p class="font-serif my-1">加速器验证思路：</p>
+<ol>
+<li class="ml-8">使用<code>Python/C++</code>编写模块相同功能函数；</li>
+<li class="ml-8">为硬件模块与软件函数搭建对应<code>testbench</code>，记录模拟结果；</li>
+<li class="ml-8">对比两者输出数据是否一致（随机抽样验证）；</li>
+<li class="ml-8">若发现错误，修改模块，并重新验证。</li>
+</ol></div></section><section><div><h2 id="13" class="text-xl mt-2 pb-2 font-sans">1.3 关键算子</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8">浮点：<code>addf16</code>, <code>mulf16</code></li>
+<li class="ml-8">矩阵：<code>mulmat</code></li>
+<li class="ml-8">层：<code>softmax</code>, <code>laternorm</code></li>
+</ul>
+<p class="font-serif my-1"><img class="float-right" src="./static/img/e18d63aaa2ef46a486d81142f573707a.png"/></p></div></section><section><div><h2 id="14" class="text-xl mt-2 pb-2 font-sans">1.4 加速方案</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8">查表法：查表法是一种常用的加速算法，它通过提前计算并存储某些数据或结果，然后在需要时直接查表获取结果，从而避免重复计算。这种方法通常用于需要频繁进行某些固定计算的场景，可以显著提高计算效率。</li>
+<li class="ml-8">cordic：CORDIC（<em>Coordinate Rotation Digital Computer</em>）算法是一种用于计算三角函数、对数和其他数学函数的快速算法。它通过迭代地进行坐标旋转和移位运算来逼近目标函数值，是一种高效且精确的计算方法。CORDIC算法在数字信号处理、通信系统等领域广泛应用，并且在硬件实现上具有很高的效率。</li>
+</ul></div></section><section data-auto-animate><div><h2 id="15" class="text-xl mt-2 pb-2 font-sans">1.5 加速器分类</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8">单PE加速器（<em>Single Processing Engine</em>）：脉动阵列处理每一层网络，使用共享资源对不同层加速，兼容性强，延迟性大。<strong>重叠模式</strong>（<em>Overlap Pattern</em>）。</li>
+<li class="ml-8">流式加速器（<em>Steam Architecture</em>）：流式处理，使用不同资源对不同层独立加速，兼容性弱，延迟性小。<strong>流模式</strong>（<em>Stream Pattern</em>）</li>
+</ul>
+<p class="font-serif my-1"><img class="float-right" src="./static/img/b8aded8b9b674d189eab2663db96c855.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">对于重叠模式下的架构：这些PE算子可跨层复用，但使用了片外DDR，由PS与PL通信控制，计算延迟受限于通信带宽。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/05938122841c4444abeebc2c9955999f.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">其他加速器：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">向量处理器（<em>Vector Processor</em>）：卷积向量算子硬件化（平方、除法、乘积），本质是单PE。</li>
+<li class="ml-8">神经突触处理器（<em>Neurosynaptic Processor</em>）：针对CNN处理器，存算一体，网络映射难度较大。</li>
+</ul></div></section><section><div><h2 id="16-ps-pl" class="text-xl mt-2 pb-2 font-sans">1.6 PS &amp; PL</h2>
+<ul class="list-disc font-serif">
+<li class="ml-8">交互：<code>gp</code>, <code>hp</code>, <code>ready-valid</code></li>
+<li class="ml-8">数据：<code>reg_ctrl</code>, <code>dma</code></li>
+</ul>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/5f91efb34c5d4203a60c26aaf24f241f.png"/></p></div></section><section data-auto-animate><div><h2 id="17" class="text-xl mt-2 pb-2 font-sans">1.7 浮点量化</h2>
+<p class="font-serif my-1">半精度浮点数<code>float16</code>：常用于实现加速器中的浮点数运算。其结构：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">符号S：1  bit</li>
+<li class="ml-8">指数E：5  bit</li>
+<li class="ml-8">尾数M：10 bit</li>
+</ul>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    |S|   E   |     M     |
   16| |14   10|9         0|
 
     FP16 = (-1)^S * 1.M * 2^(E - 15) 
     Range: [5.96*10^-8, 6.55*10^4]
-</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="2" class="text-2xl mt-2 font-sans">2 模块加速</h1></div></div></div></section><section><div><h2 id="21-conv" class="text-xl mt-2 pb-2 font-sans">2.1 Conv模块加速</h2>
-<p class="font-serif my-1">对卷积层进行模块分解：
-+ 顶层：<code>ConvLayer</code>卷积层模块
-+ 激活函数：<code>Tanh</code>激活函数、 <code>Softmax</code>激活函数
-+ 池化层：<code>AvgPool</code>平均池化层
-+ 算子：
-  + 浮点：<code>mulf16</code>半精度浮点乘、<code>addf16</code>半精度浮点加</p></div></section><section data-auto-animate><div><h3 id="211-filter-layer">2.1.1 Filter Layer</h3>
+</code></pre></div></div></section><section data-auto-animate><div><h2 id="17" class="text-xl mt-2 pb-2 font-sans">1.7 整型量化</h2></div></section><section><div><h2 id="18" class="text-xl mt-2 pb-2 font-sans">1.8 低功耗设计</h2>
+<p class="font-serif my-1">待定</p></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="2" class="text-2xl mt-2 font-sans">2 模块加速</h1></div></div></div></section><section><div><h2 id="21-conv" class="text-xl mt-2 pb-2 font-sans">2.1 Conv模块加速</h2>
+<p class="font-serif my-1">对卷积层进行模块分解：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">顶层：<code>ConvLayer</code>卷积层模块</li>
+<li class="ml-8">激活函数：<code>Tanh</code>激活函数、 <code>Softmax</code>激活函数</li>
+<li class="ml-8">池化层：<code>AvgPool</code>平均池化层</li>
+<li class="ml-8">算子：</li>
+<li class="ml-8">浮点：<code>mulf16</code>半精度浮点乘、<code>addf16</code>半精度浮点加</li>
+</ul></div></section><section data-auto-animate><div><h3 id="211-convolution-layer">2.1.1 Convolution Layer</h3>
 <p class="font-serif my-1">一个卷积层有多个卷积核（<em>Filter</em>），image输入到不同的核得到不同的特征（<em>Feature</em>），<strong>自顶向下</strong>先观察<code>Multi Filter Layer</code>，其输入图像和六个卷积核，输出卷积结果。</p>
 <p class="font-serif my-1">网络<code>ConvLayerMulti</code>层输入矩阵规模：<code>image 32*32, filterSet 5*5</code></p>
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/2616df5688b4432fafb56b775a60ca34.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerMulti</code>层输入：</p>
+<p class="font-serif my-1"><img class="center" src="./static/img/bc8b696700884026888cbbabd7a8ad9b.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerMulti</code>层输入：</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    image:       1 *        32 * 32 *   16   = 16384  
     filters:     6 *        5 * 5 *     16   = 2400
     outputConv:  1 *        28 * 28 *   16   = 12544
@@ -105,10 +143,10 @@
 
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/1ce983c69055405e990f65d06babebb2.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">对于单个卷积核（<em>Filter</em>），再观察<code>Single Filter Layer</code>，其输入图像和单个卷积核，输出特征图（<em>Feature Map</em>）。</p>
+<p class="font-serif my-1"><img class="center" src="./static/img/fbdd8baca17144cb9d5b01309d8961de.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">对于单个卷积核（<em>Filter</em>），再观察<code>Single Filter Layer</code>，其输入图像和单个卷积核，输出特征图（<em>Feature Map</em>）。</p>
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/68d7e00848a64363a117067538f16070.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerSingle</code>层输入：</p>
+<p class="font-serif my-1"><img class="center" src="./static/img/6e8d3eea184648c6ad01b904d4aab605.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">模块<code>ConvLayerSingle</code>层输入：</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>    image:       1 *        32 * 32 *   16   = 16384 
     filters:     1 *        5 * 5 *     16   = 400
     outputConv:  1 *        28 * 28 *   16   = 12544
@@ -117,23 +155,23 @@
 
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/1399533d5d42400facb1012d0165f498.png"/></p></div></section><section data-auto-animate><div><h3 id="212-convolution-unit">2.1.2 Convolution Unit</h3>
+<p class="font-serif my-1"><img class="center" src="./static/img/ca5a81cf267f4f76984bacc44189faf5.png"/></p></div></section><section data-auto-animate><div><h3 id="212-convolution-unit">2.1.2 Convolution Unit</h3>
 <p class="font-serif my-1">一个卷积核（<em>Filter</em>）与一个输入图像（<em>Image</em>）进行卷积运算，得到特征图（<em>Feature Map</em>），这个过程通过<code>ConvUnit</code>模块实现。</p>
 <hr/>
 
-<p class="font-serif my-1"><img class="float-left" src="./static/img/a7b5e0b3039d468ab47657097f3b84ce.png"/>
-<img class="float-right" src="./static/img/24adb361760c47ef94aee9cc9a00438c.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1"><code>CU</code>模块循环使用<code>PE</code>模块实现一个窗口的卷积操作，并输出一个半精度浮点型（<em>FP16</em>）计算结果。<red>注意：循环使用<code>PE</code>牺牲了速度换面积。</red></p>
+<p class="font-serif my-1"><img class="float-left" src="./static/img/dc766e1b5f8147a78bd9d308c61c45d4.png"/>
+<img class="float-right" src="./static/img/da0e4d0281634f9bae8d2cc304296ca0.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1"><code>CU</code>模块循环使用<code>PE</code>模块实现一个窗口的卷积操作，并输出一个半精度浮点型（<em>FP16</em>）计算结果。<red>注意：循环使用<code>PE</code>牺牲了速度换面积。</red></p>
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/3178ff598dd74f1db21ef285e92a2afa.png"/></p></div></section><section data-auto-animate><div><h3 id="213-processing-element">2.1.3 Processing Element</h3>
+<p class="font-serif my-1"><img class="center" src="./static/img/04ff8930256048c5a78e6f0f9584c868.png"/></p></div></section><section data-auto-animate><div><h3 id="213-processing-element">2.1.3 Processing Element</h3>
 <p class="font-serif my-1">卷积进行的具体操作是<strong>点乘</strong>，这里本质上是浮点算子：<code>mulf16</code>乘、<code>addf16</code>加，这里通过<code>PE</code>模块实现。</p>
 <hr/>
 
-<p class="font-serif my-1"><img class="float-left" src="./static/img/9ca63155f316487e8e399a350727909e.png"/>
-<img class="float-right" src="./static/img/05306bfac14940c7bac4eae6284d05c2.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块：执行具体卷积操作，即权重与数据相乘后累加。添加<code>result_reg</code>，将电路从组合逻辑转化为时序逻辑，保证数据同步。</p>
+<p class="font-serif my-1"><img class="float-left" src="./static/img/941470572b3d42e8adf7e8a4a616da7a.png"/>
+<img class="float-right" src="./static/img/26dbcb74d693441c958ed4a626bc97f3.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块：执行具体卷积操作，即权重与数据相乘后累加。添加<code>result_reg</code>，将电路从组合逻辑转化为时序逻辑，保证数据同步。</p>
 <hr/>
 
-<p class="font-serif my-1"><img class="center" src="./static/img/3e5e2d659623410a949717fa71a9672f.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块代码演示：</p>
+<p class="font-serif my-1"><img class="center" src="./static/img/cc4220d756d54a67913a68e0756a81a1.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">元素处理（<em>PE</em>）模块代码演示：</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code><span class="k">module</span><span class="w"> </span><span class="n">PE</span><span class="p">(</span>
 <span class="w">    </span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">,</span>
 <span class="w">    </span><span class="n">fA</span><span class="p">,</span><span class="w"> </span><span class="n">fB</span><span class="p">,</span><span class="w"> </span><span class="n">res</span>
@@ -160,7 +198,65 @@
 <span class="w">        </span><span class="k">end</span>
 <span class="w">    </span><span class="k">end</span>
 <span class="k">endmodule</span>
-</code></pre></div></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="3" class="text-2xl mt-2 font-sans">3 项目概览</h1></div></div></div></section><section><div><h2 id="31" class="text-xl mt-2 pb-2 font-sans">3.1 项目目录</h2>
+</code></pre></div></div></section><section data-auto-animate><div><h3 id="214-softmax-layer">2.1.4 Softmax Layer</h3>
+<p class="font-serif my-1"><code>Softmax</code>函数将输入归一化，求得各个类概率。输入规模与输出规模相同（400）。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/8e112ba8c04a4db993692a109ac93e49.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">计算过程（时序逻辑）：</p>
+<ol>
+<li class="ml-8">指数计算：将多个输入分别送到各自的<code>exponet</code>求指数，</li>
+<li class="ml-8">计算指数和：加法器累加</li>
+<li class="ml-8">求指数和倒数：使用<code>FloatReciprocal</code>计算</li>
+<li class="ml-8">得到每个元素softmax值：乘法器计算</li>
+</ol></div></section><section><div><h3 id="215-exponent">2.1.5 Exponent</h3>
+<p class="font-serif my-1">指数模块<code>exponent</code>，求解$e^x$值，输入规模与输出规模相同（32），使用泰勒展开拟合：</p>
+<p class="font-serif my-1">$$
+    e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots
+$$</p>
+<blockquote>
+<ul class="list-disc font-serif">
+<li class="ml-8">两个乘法器：分子 &amp; 分母。</li>
+<li class="ml-8">一个加法器：累加。</li>
+</ul>
+</blockquote></div></section><section><div><h2 id="22-pool" class="text-xl mt-2 pb-2 font-sans">2.2 Pool模块加速</h2>
+<p class="font-serif my-1">对平均池化层分解：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">顶层：<code>AvgPoolMulti</code>（通道平均池化）</li>
+<li class="ml-8">中间层：<code>AvgPoolSingle</code>（单通道平均池化）</li>
+<li class="ml-8">底层：<code>AvgU</code>（平均池化单元）</li>
+</ul></div></section><section data-auto-animate><div><h3 id="221-average-pool-layer">2.2.1 Average Pool Layer</h3>
+<p class="font-serif my-1">多通道平均池化层（<em>Average Pool Multi</em>）并行度为1，循环使用<code>AvgPoolSingle</code>完成所有通道的平均池化。(时序逻辑电路)</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/46a291bbb3bf4e0a83ffd37ed770d771.png"/></p></div></section><section data-auto-animate><div><p class="font-serif my-1">单通道平均池化（<em>Average Pool Single</em>）：全并行度，每个窗口都有一个<code>AvgU</code>运算模块。（组合逻辑电路）</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/d0d664265d5644be89879914b427c848.png"/></p></div></section><section><div><h3 id="222-averaging-unit">2.2.2 Averaging Unit</h3>
+<p class="font-serif my-1">平均池化单元（<em>AvgU</em>）：每个通道的平均池化操作：求输入的四个数（位宽16 * 4）的均值，先求和，再乘以0.25得到均值（位宽16）。（组合逻辑电路）</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">三个加法器：numAdd = numA + numB + numC + numD</li>
+<li class="ml-8">一个乘法器：numAvg = 0.25 * numAdd</li>
+</ul>
+<blockquote>
+<p class="font-serif my-1">优化：插入寄存器形成pipline。</p>
+</blockquote></div></section><section><div><h2 id="22-fc" class="text-xl mt-2 pb-2 font-sans">2.2 FC模块加速</h2>
+<p class="font-serif my-1">对全连接层分解：</p>
+<ul class="list-disc font-serif">
+<li class="ml-8">顶层：<code>FCMulti</code>（通道全连接）</li>
+<li class="ml-8">中间层：<code>FCSingle</code>（单通道全连接），激活函数为<code>Tanh</code></li>
+<li class="ml-8">底层：<code>PE</code>计算模块</li>
+</ul></div></section><section><div><h3 id="221-fc-layer">2.2.1 FC Layer</h3>
+<p class="font-serif my-1">全连接层（<em>Full Connection Layer</em>）：进行线性计算，矩阵向量乘，向量和。</p>
+<p class="font-serif my-1">$$
+    y = xW^T + b
+$$</p>
+<blockquote>
+<p class="font-serif my-1">注意：多层之间加上<code>Tanh</code>非线性激活函数。</p>
+</blockquote></div></section><section><div><h3 id="222-pe">2.2.2 PE</h3>
+<p class="font-serif my-1"><code>PE</code>是一个乘法器和加法器实现，实现累乘和累加。</p>
+<hr/>
+
+<p class="font-serif my-1"><img class="center" src="./static/img/bf2d84aaa4db432cbbe098f725533ff6.png"/></p></div></section></section><section><section><div class="center middle"><div style="width:100%"><div><h1 id="3" class="text-2xl mt-2 font-sans">3 项目概览</h1></div></div></div></section><section><div><h2 id="31" class="text-xl mt-2 pb-2 font-sans">3.1 项目目录</h2>
 <p class="font-serif my-1">参考如下<code>CNN</code>加速器目录：</p>
 <div class="codehilite"><pre class="bg-gray-100 overflow-x-auto rounded p-2 mb-2 mt-2"><span/><code>.
 ├── vivado_project          # 项目完整网络的vivado工程
