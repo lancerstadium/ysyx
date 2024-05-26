@@ -5,43 +5,6 @@
 #include "Vtop__pch.h"
 #include "Vtop___024root.h"
 
-void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf);
-
-void Vtop___024root___eval_ico(Vtop___024root* vlSelf) {
-    (void)vlSelf;  // Prevent unused variable warning
-    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_ico\n"); );
-    // Body
-    if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
-        Vtop___024root___ico_sequent__TOP__0(vlSelf);
-    }
-}
-
-VL_INLINE_OPT void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf) {
-    (void)vlSelf;  // Prevent unused variable warning
-    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___ico_sequent__TOP__0\n"); );
-    // Body
-    vlSelf->f = ((IData)(vlSelf->a) ^ (IData)(vlSelf->b));
-}
-
-void Vtop___024root___eval_triggers__ico(Vtop___024root* vlSelf);
-
-bool Vtop___024root___eval_phase__ico(Vtop___024root* vlSelf) {
-    (void)vlSelf;  // Prevent unused variable warning
-    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_phase__ico\n"); );
-    // Init
-    CData/*0:0*/ __VicoExecute;
-    // Body
-    Vtop___024root___eval_triggers__ico(vlSelf);
-    __VicoExecute = vlSelf->__VicoTriggered.any();
-    if (__VicoExecute) {
-        Vtop___024root___eval_ico(vlSelf);
-    }
-    return (__VicoExecute);
-}
-
 void Vtop___024root___eval_act(Vtop___024root* vlSelf) {
     (void)vlSelf;  // Prevent unused variable warning
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -57,6 +20,7 @@ void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
     // Body
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
         Vtop___024root___nba_sequent__TOP__0(vlSelf);
+        vlSelf->__Vm_traceActivity[1U] = 1U;
     }
 }
 
@@ -64,7 +28,71 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     (void)vlSelf;  // Prevent unused variable warning
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__0\n"); );
+    // Init
+    SData/*15:0*/ __Vdly__top__DOT__div1__DOT__A_reg;
+    __Vdly__top__DOT__div1__DOT__A_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div1__DOT__B_reg;
+    __Vdly__top__DOT__div1__DOT__B_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div1__DOT__C_reg;
+    __Vdly__top__DOT__div1__DOT__C_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div1__DOT__Max_reg;
+    __Vdly__top__DOT__div1__DOT__Max_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div1__DOT__Min_reg;
+    __Vdly__top__DOT__div1__DOT__Min_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__Max_next1;
+    __Vdly__top__DOT__Max_next1 = 0;
+    SData/*15:0*/ __Vdly__top__DOT__C_next1;
+    __Vdly__top__DOT__C_next1 = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div2__DOT__A_reg;
+    __Vdly__top__DOT__div2__DOT__A_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div2__DOT__B_reg;
+    __Vdly__top__DOT__div2__DOT__B_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div2__DOT__C_reg;
+    __Vdly__top__DOT__div2__DOT__C_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div2__DOT__Max_reg;
+    __Vdly__top__DOT__div2__DOT__Max_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div2__DOT__Min_reg;
+    __Vdly__top__DOT__div2__DOT__Min_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__Max_next2;
+    __Vdly__top__DOT__Max_next2 = 0;
+    SData/*15:0*/ __Vdly__top__DOT__C_next2;
+    __Vdly__top__DOT__C_next2 = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div3__DOT__A_reg;
+    __Vdly__top__DOT__div3__DOT__A_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div3__DOT__B_reg;
+    __Vdly__top__DOT__div3__DOT__B_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div3__DOT__C_reg;
+    __Vdly__top__DOT__div3__DOT__C_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div3__DOT__Max_reg;
+    __Vdly__top__DOT__div3__DOT__Max_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__div3__DOT__Min_reg;
+    __Vdly__top__DOT__div3__DOT__Min_reg = 0;
+    SData/*15:0*/ __Vdly__top__DOT__Max_next3;
+    __Vdly__top__DOT__Max_next3 = 0;
+    SData/*15:0*/ __Vdly__C;
+    __Vdly__C = 0;
     // Body
+    __Vdly__top__DOT__C_next1 = vlSelf->top__DOT__C_next1;
+    __Vdly__top__DOT__Max_next1 = vlSelf->top__DOT__Max_next1;
+    __Vdly__top__DOT__div1__DOT__Min_reg = vlSelf->top__DOT__div1__DOT__Min_reg;
+    __Vdly__top__DOT__div1__DOT__Max_reg = vlSelf->top__DOT__div1__DOT__Max_reg;
+    __Vdly__top__DOT__div1__DOT__C_reg = vlSelf->top__DOT__div1__DOT__C_reg;
+    __Vdly__top__DOT__div1__DOT__A_reg = vlSelf->top__DOT__div1__DOT__A_reg;
+    __Vdly__top__DOT__div1__DOT__B_reg = vlSelf->top__DOT__div1__DOT__B_reg;
+    __Vdly__top__DOT__C_next2 = vlSelf->top__DOT__C_next2;
+    __Vdly__top__DOT__Max_next2 = vlSelf->top__DOT__Max_next2;
+    __Vdly__top__DOT__div2__DOT__Min_reg = vlSelf->top__DOT__div2__DOT__Min_reg;
+    __Vdly__top__DOT__div2__DOT__Max_reg = vlSelf->top__DOT__div2__DOT__Max_reg;
+    __Vdly__top__DOT__div2__DOT__C_reg = vlSelf->top__DOT__div2__DOT__C_reg;
+    __Vdly__top__DOT__div2__DOT__A_reg = vlSelf->top__DOT__div2__DOT__A_reg;
+    __Vdly__top__DOT__div2__DOT__B_reg = vlSelf->top__DOT__div2__DOT__B_reg;
+    __Vdly__C = vlSelf->C;
+    __Vdly__top__DOT__Max_next3 = vlSelf->top__DOT__Max_next3;
+    __Vdly__top__DOT__div3__DOT__Min_reg = vlSelf->top__DOT__div3__DOT__Min_reg;
+    __Vdly__top__DOT__div3__DOT__Max_reg = vlSelf->top__DOT__div3__DOT__Max_reg;
+    __Vdly__top__DOT__div3__DOT__C_reg = vlSelf->top__DOT__div3__DOT__C_reg;
+    __Vdly__top__DOT__div3__DOT__A_reg = vlSelf->top__DOT__div3__DOT__A_reg;
+    __Vdly__top__DOT__div3__DOT__B_reg = vlSelf->top__DOT__div3__DOT__B_reg;
     if (vlSelf->rst) {
         vlSelf->top__DOT__lt1__DOT__count = 0U;
         vlSelf->led = 1U;
@@ -78,6 +106,189 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
                                  << 1U)) | (1U & ((IData)(vlSelf->led) 
                                                   >> 7U)));
     }
+    if (vlSelf->rst) {
+        __Vdly__top__DOT__div3__DOT__A_reg = 0U;
+        __Vdly__top__DOT__div3__DOT__B_reg = 0U;
+        __Vdly__top__DOT__div3__DOT__C_reg = 0U;
+        __Vdly__top__DOT__div3__DOT__Max_reg = 0U;
+        __Vdly__top__DOT__div3__DOT__Min_reg = 0U;
+    } else {
+        __Vdly__top__DOT__div3__DOT__A_reg = vlSelf->top__DOT__A_next2;
+        __Vdly__top__DOT__div3__DOT__C_reg = vlSelf->top__DOT__C_next2;
+        if (VL_UNLIKELY((0U == (IData)(vlSelf->top__DOT__div3__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#\n",0,16,vlSelf->top__DOT__A_next2,
+                         16,(IData)(vlSelf->top__DOT__B_next2),
+                         16,vlSelf->C);
+            __Vdly__top__DOT__div3__DOT__C_reg = 0U;
+            __Vdly__top__DOT__Max_next3 = vlSelf->top__DOT__div3__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next3 = vlSelf->top__DOT__div3__DOT__Min_reg;
+            __Vdly__C = 0U;
+        } else if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__div3__DOT__A_reg) 
+                                >= (IData)(vlSelf->top__DOT__div3__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#  (%5#, %5#)\n",0,
+                         16,vlSelf->top__DOT__A_next2,
+                         16,(IData)(vlSelf->top__DOT__B_next2),
+                         16,vlSelf->C,16,(IData)(vlSelf->top__DOT__div3__DOT__product),
+                         16,vlSelf->top__DOT__Max_next3);
+            vlSelf->top__DOT__div3__DOT__half_max = 
+                (0xffffU & VL_SHIFTR_III(16,16,32, (IData)(vlSelf->top__DOT__div3__DOT__Max_reg), 1U));
+            if (((IData)(vlSelf->top__DOT__div3__DOT__product) 
+                 <= (IData)(vlSelf->top__DOT__div3__DOT__A_reg))) {
+                __Vdly__top__DOT__div3__DOT__C_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div3__DOT__C_reg) 
+                                  + (IData)(vlSelf->top__DOT__div3__DOT__half_max)));
+                __Vdly__top__DOT__div3__DOT__A_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div3__DOT__A_reg) 
+                                  - (IData)(vlSelf->top__DOT__div3__DOT__product)));
+            }
+            vlSelf->top__DOT__Min_next3 = vlSelf->top__DOT__div3__DOT__Min_reg;
+            __Vdly__C = vlSelf->top__DOT__div3__DOT__C_reg;
+            __Vdly__top__DOT__Max_next3 = (0xffffU 
+                                           & ((IData)(vlSelf->top__DOT__div3__DOT__Max_reg) 
+                                              - (IData)(vlSelf->top__DOT__div3__DOT__half_max)));
+        } else {
+            __Vdly__C = vlSelf->top__DOT__div3__DOT__C_reg;
+            __Vdly__top__DOT__Max_next3 = vlSelf->top__DOT__div3__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next3 = vlSelf->top__DOT__div3__DOT__Min_reg;
+        }
+        __Vdly__top__DOT__div3__DOT__B_reg = vlSelf->top__DOT__B_next2;
+        __Vdly__top__DOT__div3__DOT__Max_reg = vlSelf->top__DOT__Max_next2;
+        __Vdly__top__DOT__div3__DOT__Min_reg = vlSelf->top__DOT__Min_next2;
+    }
+    vlSelf->top__DOT__A_next3 = vlSelf->top__DOT__div3__DOT__A_reg;
+    vlSelf->top__DOT__B_next3 = vlSelf->top__DOT__div3__DOT__B_reg;
+    vlSelf->top__DOT__div3__DOT__A_reg = __Vdly__top__DOT__div3__DOT__A_reg;
+    vlSelf->top__DOT__div3__DOT__C_reg = __Vdly__top__DOT__div3__DOT__C_reg;
+    vlSelf->top__DOT__div3__DOT__Max_reg = __Vdly__top__DOT__div3__DOT__Max_reg;
+    vlSelf->top__DOT__div3__DOT__Min_reg = __Vdly__top__DOT__div3__DOT__Min_reg;
+    vlSelf->top__DOT__Max_next3 = __Vdly__top__DOT__Max_next3;
+    vlSelf->C = __Vdly__C;
+    vlSelf->top__DOT__div3__DOT__B_reg = __Vdly__top__DOT__div3__DOT__B_reg;
+    vlSelf->top__DOT__div3__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div3__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div3__DOT__half_max)));
+    if (vlSelf->rst) {
+        __Vdly__top__DOT__div2__DOT__A_reg = 0U;
+        __Vdly__top__DOT__div2__DOT__B_reg = 0U;
+        __Vdly__top__DOT__div2__DOT__C_reg = 0U;
+        __Vdly__top__DOT__div2__DOT__Max_reg = 0U;
+        __Vdly__top__DOT__div2__DOT__Min_reg = 0U;
+    } else {
+        __Vdly__top__DOT__div2__DOT__A_reg = vlSelf->top__DOT__A_next1;
+        __Vdly__top__DOT__div2__DOT__C_reg = vlSelf->top__DOT__C_next1;
+        if (VL_UNLIKELY((0U == (IData)(vlSelf->top__DOT__div2__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#\n",0,16,vlSelf->top__DOT__A_next1,
+                         16,(IData)(vlSelf->top__DOT__B_next1),
+                         16,vlSelf->top__DOT__C_next2);
+            __Vdly__top__DOT__div2__DOT__C_reg = 0U;
+            __Vdly__top__DOT__Max_next2 = vlSelf->top__DOT__div2__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next2 = vlSelf->top__DOT__div2__DOT__Min_reg;
+            __Vdly__top__DOT__C_next2 = 0U;
+        } else if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__div2__DOT__A_reg) 
+                                >= (IData)(vlSelf->top__DOT__div2__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#  (%5#, %5#)\n",0,
+                         16,vlSelf->top__DOT__A_next1,
+                         16,(IData)(vlSelf->top__DOT__B_next1),
+                         16,vlSelf->top__DOT__C_next2,
+                         16,(IData)(vlSelf->top__DOT__div2__DOT__product),
+                         16,vlSelf->top__DOT__Max_next2);
+            vlSelf->top__DOT__div2__DOT__half_max = 
+                (0xffffU & VL_SHIFTR_III(16,16,32, (IData)(vlSelf->top__DOT__div2__DOT__Max_reg), 1U));
+            if (((IData)(vlSelf->top__DOT__div2__DOT__product) 
+                 <= (IData)(vlSelf->top__DOT__div2__DOT__A_reg))) {
+                __Vdly__top__DOT__div2__DOT__C_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div2__DOT__C_reg) 
+                                  + (IData)(vlSelf->top__DOT__div2__DOT__half_max)));
+                __Vdly__top__DOT__div2__DOT__A_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div2__DOT__A_reg) 
+                                  - (IData)(vlSelf->top__DOT__div2__DOT__product)));
+            }
+            vlSelf->top__DOT__Min_next2 = vlSelf->top__DOT__div2__DOT__Min_reg;
+            __Vdly__top__DOT__C_next2 = vlSelf->top__DOT__div2__DOT__C_reg;
+            __Vdly__top__DOT__Max_next2 = (0xffffU 
+                                           & ((IData)(vlSelf->top__DOT__div2__DOT__Max_reg) 
+                                              - (IData)(vlSelf->top__DOT__div2__DOT__half_max)));
+        } else {
+            __Vdly__top__DOT__C_next2 = vlSelf->top__DOT__div2__DOT__C_reg;
+            __Vdly__top__DOT__Max_next2 = vlSelf->top__DOT__div2__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next2 = vlSelf->top__DOT__div2__DOT__Min_reg;
+        }
+        __Vdly__top__DOT__div2__DOT__B_reg = vlSelf->top__DOT__B_next1;
+        __Vdly__top__DOT__div2__DOT__Max_reg = vlSelf->top__DOT__Max_next1;
+        __Vdly__top__DOT__div2__DOT__Min_reg = vlSelf->top__DOT__Min_next1;
+    }
+    vlSelf->top__DOT__A_next2 = vlSelf->top__DOT__div2__DOT__A_reg;
+    vlSelf->top__DOT__B_next2 = vlSelf->top__DOT__div2__DOT__B_reg;
+    vlSelf->top__DOT__div2__DOT__A_reg = __Vdly__top__DOT__div2__DOT__A_reg;
+    vlSelf->top__DOT__div2__DOT__C_reg = __Vdly__top__DOT__div2__DOT__C_reg;
+    vlSelf->top__DOT__div2__DOT__Max_reg = __Vdly__top__DOT__div2__DOT__Max_reg;
+    vlSelf->top__DOT__div2__DOT__Min_reg = __Vdly__top__DOT__div2__DOT__Min_reg;
+    vlSelf->top__DOT__C_next2 = __Vdly__top__DOT__C_next2;
+    vlSelf->top__DOT__Max_next2 = __Vdly__top__DOT__Max_next2;
+    vlSelf->top__DOT__div2__DOT__B_reg = __Vdly__top__DOT__div2__DOT__B_reg;
+    vlSelf->top__DOT__div2__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div2__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div2__DOT__half_max)));
+    if (vlSelf->rst) {
+        __Vdly__top__DOT__div1__DOT__A_reg = 0U;
+        __Vdly__top__DOT__div1__DOT__B_reg = 0U;
+        __Vdly__top__DOT__div1__DOT__C_reg = 0U;
+        __Vdly__top__DOT__div1__DOT__Max_reg = 0U;
+        __Vdly__top__DOT__div1__DOT__Min_reg = 0U;
+    } else {
+        __Vdly__top__DOT__div1__DOT__A_reg = vlSelf->A;
+        __Vdly__top__DOT__div1__DOT__C_reg = 0U;
+        if (VL_UNLIKELY((0U == (IData)(vlSelf->top__DOT__div1__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#\n",0,16,vlSelf->A,
+                         16,(IData)(vlSelf->B),16,vlSelf->top__DOT__C_next1);
+            __Vdly__top__DOT__div1__DOT__C_reg = 0U;
+            __Vdly__top__DOT__Max_next1 = vlSelf->top__DOT__div1__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next1 = vlSelf->top__DOT__div1__DOT__Min_reg;
+            __Vdly__top__DOT__C_next1 = 0U;
+        } else if (VL_UNLIKELY(((IData)(vlSelf->top__DOT__div1__DOT__A_reg) 
+                                >= (IData)(vlSelf->top__DOT__div1__DOT__B_reg)))) {
+            VL_WRITEF_NX("%5# / %5# = %5#  (%5#, %5#)\n",0,
+                         16,vlSelf->A,16,(IData)(vlSelf->B),
+                         16,vlSelf->top__DOT__C_next1,
+                         16,(IData)(vlSelf->top__DOT__div1__DOT__product),
+                         16,vlSelf->top__DOT__Max_next1);
+            vlSelf->top__DOT__div1__DOT__half_max = 
+                (0xffffU & VL_SHIFTR_III(16,16,32, (IData)(vlSelf->top__DOT__div1__DOT__Max_reg), 1U));
+            if (((IData)(vlSelf->top__DOT__div1__DOT__product) 
+                 <= (IData)(vlSelf->top__DOT__div1__DOT__A_reg))) {
+                __Vdly__top__DOT__div1__DOT__C_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div1__DOT__C_reg) 
+                                  + (IData)(vlSelf->top__DOT__div1__DOT__half_max)));
+                __Vdly__top__DOT__div1__DOT__A_reg 
+                    = (0xffffU & ((IData)(vlSelf->top__DOT__div1__DOT__A_reg) 
+                                  - (IData)(vlSelf->top__DOT__div1__DOT__product)));
+            }
+            vlSelf->top__DOT__Min_next1 = vlSelf->top__DOT__div1__DOT__Min_reg;
+            __Vdly__top__DOT__C_next1 = vlSelf->top__DOT__div1__DOT__C_reg;
+            __Vdly__top__DOT__Max_next1 = (0xffffU 
+                                           & ((IData)(vlSelf->top__DOT__div1__DOT__Max_reg) 
+                                              - (IData)(vlSelf->top__DOT__div1__DOT__half_max)));
+        } else {
+            __Vdly__top__DOT__C_next1 = vlSelf->top__DOT__div1__DOT__C_reg;
+            __Vdly__top__DOT__Max_next1 = vlSelf->top__DOT__div1__DOT__Max_reg;
+            vlSelf->top__DOT__Min_next1 = vlSelf->top__DOT__div1__DOT__Min_reg;
+        }
+        __Vdly__top__DOT__div1__DOT__B_reg = vlSelf->B;
+        __Vdly__top__DOT__div1__DOT__Max_reg = 5U;
+        __Vdly__top__DOT__div1__DOT__Min_reg = 0U;
+    }
+    vlSelf->top__DOT__A_next1 = vlSelf->top__DOT__div1__DOT__A_reg;
+    vlSelf->top__DOT__B_next1 = vlSelf->top__DOT__div1__DOT__B_reg;
+    vlSelf->top__DOT__div1__DOT__A_reg = __Vdly__top__DOT__div1__DOT__A_reg;
+    vlSelf->top__DOT__div1__DOT__C_reg = __Vdly__top__DOT__div1__DOT__C_reg;
+    vlSelf->top__DOT__div1__DOT__Max_reg = __Vdly__top__DOT__div1__DOT__Max_reg;
+    vlSelf->top__DOT__div1__DOT__Min_reg = __Vdly__top__DOT__div1__DOT__Min_reg;
+    vlSelf->top__DOT__C_next1 = __Vdly__top__DOT__C_next1;
+    vlSelf->top__DOT__Max_next1 = __Vdly__top__DOT__Max_next1;
+    vlSelf->top__DOT__div1__DOT__B_reg = __Vdly__top__DOT__div1__DOT__B_reg;
+    vlSelf->top__DOT__div1__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div1__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div1__DOT__half_max)));
 }
 
 void Vtop___024root___eval_triggers__act(Vtop___024root* vlSelf);
@@ -116,9 +327,6 @@ bool Vtop___024root___eval_phase__nba(Vtop___024root* vlSelf) {
 }
 
 #ifdef VL_DEBUG
-VL_ATTR_COLD void Vtop___024root___dump_triggers__ico(Vtop___024root* vlSelf);
-#endif  // VL_DEBUG
-#ifdef VL_DEBUG
 VL_ATTR_COLD void Vtop___024root___dump_triggers__nba(Vtop___024root* vlSelf);
 #endif  // VL_DEBUG
 #ifdef VL_DEBUG
@@ -130,28 +338,9 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval\n"); );
     // Init
-    IData/*31:0*/ __VicoIterCount;
-    CData/*0:0*/ __VicoContinue;
     IData/*31:0*/ __VnbaIterCount;
     CData/*0:0*/ __VnbaContinue;
     // Body
-    __VicoIterCount = 0U;
-    vlSelf->__VicoFirstIteration = 1U;
-    __VicoContinue = 1U;
-    while (__VicoContinue) {
-        if (VL_UNLIKELY((0x64U < __VicoIterCount))) {
-#ifdef VL_DEBUG
-            Vtop___024root___dump_triggers__ico(vlSelf);
-#endif
-            VL_FATAL_MT("vsrc/top.v", 1, "", "Input combinational region did not converge.");
-        }
-        __VicoIterCount = ((IData)(1U) + __VicoIterCount);
-        __VicoContinue = 0U;
-        if (Vtop___024root___eval_phase__ico(vlSelf)) {
-            __VicoContinue = 1U;
-        }
-        vlSelf->__VicoFirstIteration = 0U;
-    }
     __VnbaIterCount = 0U;
     __VnbaContinue = 1U;
     while (__VnbaContinue) {
@@ -195,9 +384,5 @@ void Vtop___024root___eval_debug_assertions(Vtop___024root* vlSelf) {
         Verilated::overWidthError("clk");}
     if (VL_UNLIKELY((vlSelf->rst & 0xfeU))) {
         Verilated::overWidthError("rst");}
-    if (VL_UNLIKELY((vlSelf->a & 0xfeU))) {
-        Verilated::overWidthError("a");}
-    if (VL_UNLIKELY((vlSelf->b & 0xfeU))) {
-        Verilated::overWidthError("b");}
 }
 #endif  // VL_DEBUG
