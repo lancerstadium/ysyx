@@ -93,13 +93,46 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     // Body
     vlSelf->top__DOT__div1__DOT__product = (0xffffU 
                                             & ((IData)(vlSelf->top__DOT__div1__DOT__B_reg) 
-                                               * (IData)(vlSelf->top__DOT__div1__DOT__half_max)));
+                                               * (IData)(vlSelf->top__DOT__div1__DOT__Mid_reg)));
+    vlSelf->top__DOT__div1__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div1__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div1__DOT__Min_reg)));
     vlSelf->top__DOT__div2__DOT__product = (0xffffU 
                                             & ((IData)(vlSelf->top__DOT__div2__DOT__B_reg) 
-                                               * (IData)(vlSelf->top__DOT__div2__DOT__half_max)));
+                                               * (IData)(vlSelf->top__DOT__div2__DOT__Mid_reg)));
+    vlSelf->top__DOT__div2__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div2__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div2__DOT__Min_reg)));
     vlSelf->top__DOT__div3__DOT__product = (0xffffU 
                                             & ((IData)(vlSelf->top__DOT__div3__DOT__B_reg) 
-                                               * (IData)(vlSelf->top__DOT__div3__DOT__half_max)));
+                                               * (IData)(vlSelf->top__DOT__div3__DOT__Mid_reg)));
+    vlSelf->top__DOT__div3__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div3__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div3__DOT__Min_reg)));
+    vlSelf->top__DOT__div4__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div4__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div4__DOT__Mid_reg)));
+    vlSelf->top__DOT__div4__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div4__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div4__DOT__Min_reg)));
+    vlSelf->top__DOT__div5__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div5__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div5__DOT__Mid_reg)));
+    vlSelf->top__DOT__div5__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div5__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div5__DOT__Min_reg)));
+    vlSelf->top__DOT__div6__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div6__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div6__DOT__Mid_reg)));
+    vlSelf->top__DOT__div6__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div6__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div6__DOT__Min_reg)));
+    vlSelf->top__DOT__div7__DOT__product = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div7__DOT__B_reg) 
+                                               * (IData)(vlSelf->top__DOT__div7__DOT__Mid_reg)));
+    vlSelf->top__DOT__div7__DOT__Add_reg = (0xffffU 
+                                            & ((IData)(vlSelf->top__DOT__div7__DOT__Max_reg) 
+                                               + (IData)(vlSelf->top__DOT__div7__DOT__Min_reg)));
 }
 
 VL_ATTR_COLD void Vtop___024root___eval_triggers__stl(Vtop___024root* vlSelf);
@@ -172,8 +205,29 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__Min_next2 = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__A_next3 = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__B_next3 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__C_next3 = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__Max_next3 = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__Min_next3 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__A_next4 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__B_next4 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__C_next4 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Max_next4 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Min_next4 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__A_next5 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__B_next5 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__C_next5 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Max_next5 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Min_next5 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__A_next6 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__B_next6 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__C_next6 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Max_next6 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Min_next6 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__A_next7 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__B_next7 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__C_next7 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Max_next7 = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__Min_next7 = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__lt1__DOT__count = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__div1__DOT__A_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div1__DOT__B_reg = VL_RAND_RESET_I(16);
@@ -181,7 +235,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__div1__DOT__Max_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div1__DOT__Min_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div1__DOT__Cmp_reg = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT__div1__DOT__half_max = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div1__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div1__DOT__Mid_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div1__DOT__product = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div2__DOT__A_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div2__DOT__B_reg = VL_RAND_RESET_I(16);
@@ -189,7 +244,8 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__div2__DOT__Max_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div2__DOT__Min_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div2__DOT__Cmp_reg = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT__div2__DOT__half_max = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div2__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div2__DOT__Mid_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div2__DOT__product = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div3__DOT__A_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div3__DOT__B_reg = VL_RAND_RESET_I(16);
@@ -197,8 +253,45 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__div3__DOT__Max_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div3__DOT__Min_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div3__DOT__Cmp_reg = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT__div3__DOT__half_max = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div3__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div3__DOT__Mid_reg = VL_RAND_RESET_I(16);
     vlSelf->top__DOT__div3__DOT__product = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__A_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__B_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__C_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__Max_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__Min_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__Cmp_reg = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__div4__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__Mid_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div4__DOT__product = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__A_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__B_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__C_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__Max_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__Min_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__Cmp_reg = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__div5__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__Mid_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div5__DOT__product = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__A_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__B_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__C_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__Max_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__Min_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__Cmp_reg = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__div6__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__Mid_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div6__DOT__product = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__A_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__B_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__C_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__Max_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__Min_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__Cmp_reg = VL_RAND_RESET_I(1);
+    vlSelf->top__DOT__div7__DOT__Add_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__Mid_reg = VL_RAND_RESET_I(16);
+    vlSelf->top__DOT__div7__DOT__product = VL_RAND_RESET_I(16);
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = VL_RAND_RESET_I(1);
     for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;

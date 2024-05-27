@@ -24,10 +24,13 @@ module divider  #(
     reg         [DATA_WIDTH-1:0]    Min_reg;                // 输出最小商寄存器
     reg                             Cmp_reg;                // 比较寄存器：C < A / B
 
-    reg         [DATA_WIDTH-1:0]    half_max;               // 获取一半的最大商作为搜索范围
+    reg         [DATA_WIDTH-1:0]    Add_reg;                // 获取和结果
+    reg         [DATA_WIDTH-1:0]    Mid_reg;                // 获取一半的最大商作为搜索范围
     reg         [DATA_WIDTH-1:0]    product;                // 存储乘积结果
 
-    multiplier #(DATA_WIDTH) mult_inst (clk, rst, B_reg, half_max, product);
+    adder       #(DATA_WIDTH)       add_inst    (clk, rst, Max_reg, Min_reg, Add_reg);
+    multiplier  #(DATA_WIDTH)       mul_inst    (clk, rst, B_reg, Mid_reg, product);
+    
 
     // 二分查找逼近除法解，每次时钟上升沿逼近一次
     always @(posedge clk) begin
@@ -41,7 +44,7 @@ module divider  #(
             A_reg <= A_in;
             B_reg <= B_in;
             C_reg <= C_in;
-            Max_reg <= Max_in;
+            Max_reg <= (C_reg == 0) ? A_in : Max_in;
             Min_reg <= Min_in;
             if (B_reg == 0) begin
                 // 除数为0时，不进行除法运算，商保持为0
@@ -49,22 +52,27 @@ module divider  #(
                 Max_out <= Max_reg;
                 Min_out <= Min_reg;
                 C_out <= 0;
-                $display("%d / %d = %d", A_in, B_in, C_out);
             end else if (A_reg >= B_reg) begin
                 // 被除数大于等于除数，进行一次逼近
-                
-                half_max = Max_reg >> 1; 
-                if (product <= A_reg) begin
-                    // 如果乘积小于等于被除数，更新商和剩余的被除数
-                    C_reg <= C_reg + half_max;
-                    A_reg <= A_reg - product;
+                Mid_reg = Add_reg >> 1; 
+                if (product < A_reg) begin
+                    // 如果乘积小于等于被除数
+                    C_reg <= Mid_reg;      // 更新最大商
+                    Max_out <= Max_reg; 
+                    Min_out <= Mid_reg; 
+                end else if (product > A_reg) begin
+                    C_reg <= Mid_reg;      // 更新最大商
+                    Max_out <= Mid_reg;
+                    Min_out <= Min_reg;
+                end else begin
+                    C_reg <= Mid_reg; 
+                    Max_out <= Mid_reg;
+                    Min_out <= Mid_reg;
                 end
                 
                 // 更新输出值
                 C_out <= C_reg;
-                Max_out <= Max_reg - half_max; // 更新最大商
-                Min_out <= Min_reg; // 假设最小商不改变，根据实际逻辑可能需要更新
-                $display("%d / %d = %d  (%d, %d)", A_in, B_in, C_out, product, Max_out);
+                // $display("%d / %d = %d  (%d, %d ~%d)", A_in, B_in, C_out, product, Min_out, Max_out);
             end else begin
                 // 如果被除数小于除数，保持商不变
                 C_out <= C_reg;

@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-#include <cmath>
 
 // readline
 #include <readline/readline.h>
@@ -81,8 +80,8 @@ float f16tof32(vluint16_t value) {
 }
 
 void div_init() {
-    top->A = 15;
-    top->B = 3;
+    top->A = rand() % 100;
+    top->B = rand() % 50;
 }
 
 
@@ -107,6 +106,9 @@ void reset(int n) {
 // =================================================== //
 
 int main(int argc, char **argv, char **env) {
+
+    srand(time(0));
+
     contextp = new VerilatedContext;
     contextp->commandArgs(argc, argv);
 
@@ -123,12 +125,14 @@ int main(int argc, char **argv, char **env) {
     tfp->set_time_unit("ns");           // Set time unit to nanoseconds
     
     reset(10);
-    div_init();
+    
     // Start simulation
+    div_init();
     for (int i = 0; i < sim_steps; i++) {   // start until sim_step
         single_cycle();
     }
     div_print();
+    
 
     // VCD wave dump
     tfp->close();
