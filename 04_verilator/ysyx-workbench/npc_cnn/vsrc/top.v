@@ -1,12 +1,12 @@
 module top(
-    input                           clk,                    // 时钟信号
-    input                           rst,                    // 复位信号
+    input                               clk,                    // 时钟信号
+    input                               rst,                    // 复位信号
 
-    input       [31:0]              A,                      // 输入A
-    input       [31:0]              B,                      // 输入B
-    output reg  [31:0]              C                       // 输入C
+    input       [31:0]                  A,                      // 输入A
+    input       [31:0]                  B,                      // 输入B
+    output reg  [31:0]                  C                       // 输入C
 );
-    floatMul #(32) f32Mul (A, B, C);
+    procElem #(32, 1) PE (clk, rst, A, B, C);
 
 endmodule
 

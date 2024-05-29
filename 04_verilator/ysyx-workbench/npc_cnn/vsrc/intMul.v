@@ -1,4 +1,4 @@
-module intAdd  #(
+module intMul  #(
     parameter   DATA_WIDTH              = 32                    // Data width, default: 32 bits
 ) (
     input       [DATA_WIDTH - 1: 0]     A,                      // SInt: A
@@ -10,7 +10,7 @@ module intAdd  #(
     always @ (A or B) begin
         A_signed = A;
         B_signed = B;
-        C_signed = A_signed + B_signed;
+        C_signed = A_signed * B_signed;
         C = C_signed;
     end
 

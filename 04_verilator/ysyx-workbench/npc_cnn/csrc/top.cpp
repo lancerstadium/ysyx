@@ -39,53 +39,35 @@ void single_cycle() {
     single_cycle_vcd_record();
 }
 
-
-vluint16_t f32tof16(float value) {
-    uint32_t f32 = *(uint32_t*)&value;
-    vluint16_t sign = (f32 >> 16) & 0x8000;
-    int16_t exponent = ((f32 >> 23) & 0xFF) - 127 + 15;
-    vluint16_t fraction = (f32 >> 13) & 0x3FF;
-    
-    if (exponent <= 0) {
-        return sign;
-    } else if (exponent >= 31) {
-        return sign | 0x7C00;
-    }
-    
-    return sign | (exponent << 10) | fraction;
-}
-
-float f16tof32(vluint16_t value) {
-    int sign = (value >> 15) & 0x1;
-    int exponent = (value >> 10) & 0x1F;
-    int fraction = value & 0x3FF;
-
-    if (exponent == 0) {
-        if (fraction == 0) {
-            return (sign == 0) ? 0.0 : -0.0;
-        } else {
-            float result = pow(-1, sign) * pow(2, -14) * (fraction / 1024.0);
-            return result;
-        }
-    } else if (exponent == 31) {
-        if (fraction == 0) {
-            return (sign == 0) ? INFINITY : -INFINITY;
-        } else {
-            return NAN;
-        }
-    } else {
-        float result = pow(-1, sign) * pow(2, exponent - 15) * (1 + fraction / 1024.0);
-        return result;
-    }
-}
-
-
 void reset(int n) {
     top->rst = 1;
     while (n-- > 0) single_cycle();
     top->rst = 0;
 }
 
+float float_valueA;
+float float_valueB;
+float float_valueC;
+
+void elem_init() {
+    float_valueA = (float)rand() / RAND_MAX * 400 - 200;  // -200.0~400.0
+    float_valueB = (float)rand() / RAND_MAX * 400 - 200; 
+    float_valueC += float_valueA * float_valueB;
+    top->A = *(uint32_t *)&float_valueA;
+    top->B = *(uint32_t *)&float_valueB;
+}
+
+void elem_display() {
+    float float_valueA_hw = *(float *)&top->A;
+    float float_valueB_hw = *(float *)&top->B;
+    float float_valueC_hw = *(float *)&top->C;
+    printf("A = %10.3f, B = %10.3f, C = %12.3f, C_hw = %12.3f, Bias = %8.3f\n", 
+        float_valueA_hw, 
+        float_valueB_hw, 
+        float_valueC, 
+        float_valueC_hw,
+        float_valueC - float_valueC_hw);
+}
 
 
 // =================================================== //
@@ -94,7 +76,7 @@ void reset(int n) {
 
 int main(int argc, char **argv, char **env) {
 
-    srand(time(0));
+    srand((unsigned int)time(NULL));
 
     contextp = new VerilatedContext;
     contextp->commandArgs(argc, argv);
@@ -108,24 +90,18 @@ int main(int argc, char **argv, char **env) {
     top->trace(tfp, 0);
 
     // VCD wave setting
-    tfp->open("wave.vcd");              // VCD file path
+    tfp->open("top.vcd");              // VCD file path
     tfp->set_time_unit("ns");           // Set time unit to nanoseconds
     
     reset(10);
-    
 
-    float float_valueA = 3.15;
-    float float_valueB = 6.23;
-    top->A = *reinterpret_cast<uint32_t*>(&float_valueA);
-    top->B = *reinterpret_cast<uint32_t*>(&float_valueB);
     // Start simulation
     for (int i = 0; i < sim_steps; i++) {   // start until sim_step
+        elem_init();
         single_cycle();
+        elem_display();
     }
-    float float_valueA_hw = *reinterpret_cast<float*>(&top->A);
-    float float_valueB_hw = *reinterpret_cast<float*>(&top->B);
-    float float_valueC_hw = *reinterpret_cast<float*>(&top->C);
-    printf("A = %f, B = %f, C = %f\n", float_valueA_hw, float_valueB_hw, float_valueC_hw);
+
 
     // VCD wave dump
     tfp->close();

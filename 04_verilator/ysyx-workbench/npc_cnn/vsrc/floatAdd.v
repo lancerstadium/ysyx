@@ -1,21 +1,19 @@
 module floatAdd  #(
-    parameter   DATA_WIDTH = 32                                 // Data width, default: 32 bits
+    parameter   DATA_WIDTH              = 32                    // Data width, default: 32 bits
 ) (
     input       [DATA_WIDTH - 1: 0]     A,                      // F16/32/64: A
     input       [DATA_WIDTH - 1: 0]     B,                      // F16/32/64: B
     output reg  [DATA_WIDTH - 1: 0]     C                       // F16/32/64: C
 );
     // Data Parameters
-    parameter EXPONENT_WIDTH = 
-    (DATA_WIDTH == 16) ?  5 : 
-    (DATA_WIDTH == 32) ?  8 : 
-    (DATA_WIDTH == 64) ? 11 : 
-    8; // Default value if DATA_WIDTH is unsupported
-    parameter MANTISSA_WIDTH = 
-    (DATA_WIDTH == 16) ? 10 : 
-    (DATA_WIDTH == 32) ? 23 : 
-    (DATA_WIDTH == 64) ? 52 : 
-    23; // Default value if DATA_WIDTH is unsupported
+    parameter   EXPONENT_WIDTH = 
+    (DATA_WIDTH == 16) ?        5 : 
+    (DATA_WIDTH == 32) ?        8 : 
+    (DATA_WIDTH == 64) ?       11 :     8;                      // Default: 8
+    parameter   MANTISSA_WIDTH = 
+    (DATA_WIDTH == 16) ?       10 : 
+    (DATA_WIDTH == 32) ?       23 : 
+    (DATA_WIDTH == 64) ?       52 :    23;                      // Default: 23
 
     // C: {sign, exponent, mantissa}
     reg                                 sign;
@@ -27,6 +25,7 @@ module floatAdd  #(
     reg         [MANTISSA_WIDTH    : 0] fractionA, fractionB;
     reg         [EXPONENT_WIDTH    : 0] shiftAmount;
     reg                                 cout;
+    reg                                 eout;
 
     // C = A + B
     always @ (A or B) begin
@@ -40,6 +39,7 @@ module floatAdd  #(
         shiftAmount = 0;
         fraction = 0;
         cout = 0;
+        eout = 0;
         if (A[DATA_WIDTH - 2: 0] == 0) begin                    // special case (A = 0)
             C = B;
         end else if (B[DATA_WIDTH - 2: 0] == 0) begin           // special case (B = 0)
@@ -62,7 +62,7 @@ module floatAdd  #(
                 {cout, fraction} = fractionA + fractionB;
                 if (cout == 1'b1) begin
                     {cout, fraction} = {cout,fraction} >> 1;
-                    exponent = exponent + 1;
+                    {eout, exponent} = exponent + 1;
                 end
                 sign = A[DATA_WIDTH - 1];
             end else begin                                      // different signs
@@ -74,26 +74,26 @@ module floatAdd  #(
                 sign = cout;
                 if (cout == 1'b1) begin
                     fraction = -fraction;
-                end else begin
-                    // Do nothing
                 end
 
                 if (fraction[MANTISSA_WIDTH] == 0) begin
                     for (int i = MANTISSA_WIDTH - 1; i >= 0; i = i - 1) begin
                         if (fraction[i] == 1'b1) begin
                             fraction = fraction << (MANTISSA_WIDTH - i);
-                            exponent = exponent - (MANTISSA_WIDTH[EXPONENT_WIDTH - 1: 0] - i[EXPONENT_WIDTH - 1: 0]);
+                            {eout, exponent} = exponent - (MANTISSA_WIDTH[EXPONENT_WIDTH - 1: 0] - i[EXPONENT_WIDTH - 1: 0]);
                             break;
                         end
                     end                   
-                end else begin
-                    // Do nothing
                 end
             end
-            mantissa = fraction[MANTISSA_WIDTH - 1: 0];             // extract mantissa
-            C = {sign, exponent, mantissa};                         // combine sign, exponent, and mantissa
-            // $display("sign = %b, exponent = %b, mantissa = %b", sign, exponent, mantissa);	
-            // $display("A = %b, B = %b, C = %b", A, B, C);	
+            if(eout == 1'b1) begin          // Overflow
+                C = 0;
+            end else begin
+                mantissa = fraction[MANTISSA_WIDTH - 1: 0];     // extract mantissa
+                C = {sign, exponent, mantissa};                 // combine sign, exponent, and mantissa
+                // $display("sign = %b, exponent = %b, mantissa = %b", sign, exponent, mantissa);	
+                // $display("A = %b, B = %b, C = %b", A, B, C);	
+            end
         end
     end
 endmodule
