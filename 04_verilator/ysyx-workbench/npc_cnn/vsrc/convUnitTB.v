@@ -27,7 +27,6 @@ module convUnitTB ();
         $displayh(res);
         $finish;
     end
-
     convUnit #(
         .DATA_WIDTH(DATA_WIDTH),
         .D(D),
