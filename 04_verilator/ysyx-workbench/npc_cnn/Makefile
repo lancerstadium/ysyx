@@ -9,11 +9,14 @@ FIRST_GOAL := $(firstword $(MAKECMDGOALS))
 SECOND_GOAL := $(word 2, $(MAKECMDGOALS))
 THIRD_GOAL := $(word 3, $(MAKECMDGOALS))
 
+TB_ITEM := procElem convUnit convLayerSingle convLayerMulti
 TB_TEMP := ./tmp/testBench.cpp
 TB_NAME := $(if $(SECOND_GOAL),$(SECOND_GOAL)TB,top)
 TB_EXEC := obj_dir/V$(TB_NAME)
 TB_CSRC := ./csrc/$(TB_NAME).cpp
 WAVE_NAME := ./$(TB_NAME).vcd
+
+GEN_ENABLE := 0
 
 all:
 	@echo "Write this Makefile by your self."
@@ -31,7 +34,10 @@ tb_del:
 	rm $(TB_CSRC)
 	@echo "------------------- TestBench DEL DONE -----------------"
 
-build:
+build: $(VSRCS)
+ifneq ($(GEN_ENABLE),0)
+	make tb_gen $(SECOND_GOAL)
+endif
 	@echo "------------------- VERILATE BUILD ---------------------"
 	verilator $(SIMFLAGS) \
 	--top-module $(TB_NAME) \
@@ -57,6 +63,6 @@ clean:
 	rm *.vcd
 
 
-.PHONY: all build sim wave clean
+.PHONY: all tb_gen tb_del build sim wave clean $(TB_ITEM)
 
 include ../Makefile

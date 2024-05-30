@@ -30,6 +30,7 @@ void env_init(int argc, char **argv) {
     
     contextp->commandArgs(argc, argv);              // Parse command line arguments
     contextp->traceEverOn(true);                    // Enable tracing
+    procElemTB_t->trace(tfp,3);                // Deepth Trace: 3
     tfp->open("procElemTB.vcd");                   // VCD file path
 }
 

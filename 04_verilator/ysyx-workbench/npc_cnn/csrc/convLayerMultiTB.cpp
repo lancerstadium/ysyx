@@ -1,7 +1,7 @@
 // verilator
 #include <verilated.h>
 #include <verilated_vcd_c.h>
-#include "VtestBenchTB.h"
+#include "VconvLayerMultiTB.h"
 
 // glibc
 #include <stdio.h>
@@ -15,7 +15,7 @@
 
 VerilatedContext* contextp;
 VerilatedVcdC* tfp;
-VtestBenchTB* testBenchTB_t;
+VconvLayerMultiTB* convLayerMultiTB_t;
 
 
 // =================================================== //
@@ -26,24 +26,24 @@ VtestBenchTB* testBenchTB_t;
 void env_init(int argc, char **argv) {
     contextp = new VerilatedContext;                // Init Verilated context
     tfp = new VerilatedVcdC;                        // Init VCD pointer
-    testBenchTB_t = new VtestBenchTB;                // TestBench: testBench
+    convLayerMultiTB_t = new VconvLayerMultiTB;                // TestBench: testBench
     
     contextp->commandArgs(argc, argv);              // Parse command line arguments
     contextp->traceEverOn(true);                    // Enable tracing
-    testBenchTB_t->trace(tfp,3);                // Deepth Trace: 3
-    tfp->open("testBenchTB.vcd");                   // VCD file path
+    convLayerMultiTB_t->trace(tfp,3);                // Deepth Trace: 3
+    tfp->open("convLayerMultiTB.vcd");                   // VCD file path
 }
 
 
 void env_clean() {
     tfp->close();
-    delete testBenchTB_t;
+    delete convLayerMultiTB_t;
     delete tfp;
     delete contextp;
 }
 
 void sim() {
-    testBenchTB_t->eval();
+    convLayerMultiTB_t->eval();
 }
 
 // Single Cycle Vcd Record
