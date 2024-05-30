@@ -19,7 +19,7 @@ module convLayerSingle #(
     wire        [0: (((W-S+1)/2)*D*S*S*DATA_WIDTH)-1] imgPart;  // array of the matrices to be sent to conv units
     /* verilator lint_on ASCRANGE */
     reg                                 gRst;
-    reg         [S: 0]                  rowNum, colSel; 
+    reg         [5: 0]                  rowNum, colSel; 
     integer                             clkCnt, cuCnt;
 
     selRF #(

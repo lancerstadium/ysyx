@@ -13,8 +13,6 @@
 class VconvLayerSingleTB__Syms;
 class VconvLayerSingleTB___024root;
 class VerilatedVcdC;
-class VconvLayerSingleTB_convUnit__D10;
-
 
 // This class is the main interface to the Verilated model
 class alignas(VL_CACHE_LINE_BYTES) VconvLayerSingleTB VL_NOT_FINAL : public VerilatedModel {
@@ -31,20 +29,6 @@ class alignas(VL_CACHE_LINE_BYTES) VconvLayerSingleTB VL_NOT_FINAL : public Veri
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__1__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__2__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__3__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__4__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__5__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__6__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__7__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__8__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__9__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__10__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__11__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__12__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* const __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__13__KET____DOT__CU;
 
     // Root instance pointer to allow access to model internals,
     // including inlined /* verilator public_flat_* */ items.

@@ -10,20 +10,6 @@
 VconvLayerSingleTB::VconvLayerSingleTB(VerilatedContext* _vcontextp__, const char* _vcname__)
     : VerilatedModel{*_vcontextp__}
     , vlSymsp{new VconvLayerSingleTB__Syms(contextp(), _vcname__, this)}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__1__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__1__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__2__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__2__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__3__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__3__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__4__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__4__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__5__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__5__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__6__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__6__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__7__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__7__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__8__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__8__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__9__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__9__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__10__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__10__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__11__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__11__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__12__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__12__KET____DOT__CU}
-    , __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__13__KET____DOT__CU{vlSymsp->TOP.__PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__13__KET____DOT__CU}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

@@ -7,28 +7,12 @@
 
 #include "verilated.h"
 #include "verilated_timing.h"
-class VconvLayerSingleTB_convUnit__D10;
 
 
 class VconvLayerSingleTB__Syms;
 
 class alignas(VL_CACHE_LINE_BYTES) VconvLayerSingleTB___024root final : public VerilatedModule {
   public:
-    // CELLS
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__1__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__2__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__3__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__4__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__5__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__6__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__7__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__8__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__9__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__10__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__11__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__12__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10* __PVT__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__13__KET____DOT__CU;
 
     // DESIGN SPECIFIC STATE
     CData/*0:0*/ convLayerSingleTB__DOT__clk;
@@ -41,22 +25,34 @@ class alignas(VL_CACHE_LINE_BYTES) VconvLayerSingleTB___024root final : public V
     CData/*0:0*/ __Vtrigprevexpr___TOP__convLayerSingleTB__DOT__rst__0;
     CData/*0:0*/ __Vtrigprevexpr___TOP__convLayerSingleTB__DOT__UUT__DOT__gRst__0;
     CData/*0:0*/ __VactContinue;
-    VlWide<512>/*16383:0*/ convLayerSingleTB__DOT__img;
-    VlWide<13>/*399:0*/ convLayerSingleTB__DOT__fit;
-    VlWide<392>/*12543:0*/ convLayerSingleTB__DOT__res;
+    SData/*15:0*/ convLayerSingleTB__DOT__tmp;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__cuRes;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__selInA;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__selInB;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__mulC;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__addC;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iMul__DOT__A_signed;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iMul__DOT__B_signed;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iMul__DOT__C_signed;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iAdd__DOT__A_signed;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iAdd__DOT__B_signed;
+    SData/*15:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__PE__DOT__float_mode__DOT__iAdd__DOT__C_signed;
+    VlWide<13>/*399:0*/ convLayerSingleTB__DOT__img;
+    VlWide<5>/*143:0*/ convLayerSingleTB__DOT__fit;
+    VlWide<5>/*143:0*/ convLayerSingleTB__DOT__res;
     IData/*31:0*/ convLayerSingleTB__DOT__i;
     IData/*31:0*/ convLayerSingleTB__DOT__clkCnt;
-    VlWide<7>/*223:0*/ convLayerSingleTB__DOT__UUT__DOT__cuRes;
-    VlWide<175>/*5599:0*/ convLayerSingleTB__DOT__UUT__DOT__imgPart;
+    VlWide<5>/*143:0*/ convLayerSingleTB__DOT__UUT__DOT__imgPart;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__clkCnt;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__cuCnt;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT__address;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT__c;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT__k;
     IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT__i;
-    VlWide<3>/*79:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT____Vlvbound_hf8708011__0;
-    VlWide<3>/*79:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT____Vlvbound_hf8708011__1;
+    IData/*31:0*/ convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU__DOT__i;
     IData/*31:0*/ __VactIterCount;
+    QData/*47:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT____Vlvbound_he8c4c52e__0;
+    QData/*47:0*/ convLayerSingleTB__DOT__UUT__DOT__RF__DOT____Vlvbound_he8c4c52e__1;
     VlUnpacked<CData/*0:0*/, 7> __Vm_traceActivity;
     VlDelayScheduler __VdlySched;
     VlTriggerVec<1> __VstlTriggered;

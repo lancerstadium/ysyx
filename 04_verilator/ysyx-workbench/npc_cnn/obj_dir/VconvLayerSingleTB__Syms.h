@@ -15,7 +15,6 @@
 
 // INCLUDE MODULE CLASSES
 #include "VconvLayerSingleTB___024root.h"
-#include "VconvLayerSingleTB_convUnit__D10.h"
 
 // SYMS CLASS (contains all model state)
 class alignas(VL_CACHE_LINE_BYTES)VconvLayerSingleTB__Syms final : public VerilatedSyms {
@@ -29,20 +28,6 @@ class alignas(VL_CACHE_LINE_BYTES)VconvLayerSingleTB__Syms final : public Verila
 
     // MODULE INSTANCE STATE
     VconvLayerSingleTB___024root   TOP;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__0__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__10__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__11__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__12__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__13__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__1__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__2__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__3__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__4__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__5__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__6__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__7__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__8__KET____DOT__CU;
-    VconvLayerSingleTB_convUnit__D10 TOP__convLayerSingleTB__DOT__UUT__DOT__genblk1__BRA__9__KET____DOT__CU;
 
     // CONSTRUCTORS
     VconvLayerSingleTB__Syms(VerilatedContext* contextp, const char* namep, VconvLayerSingleTB* modelp);
