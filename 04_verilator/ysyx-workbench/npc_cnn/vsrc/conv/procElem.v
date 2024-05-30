@@ -2,8 +2,8 @@ module procElem #(
     parameter   DATA_WIDTH              = 32,                   // Data width, default: 32 bits
     parameter   FLOAT_MODE              = 1                     // 0: SInt, 1: Float
 ) (
-    input                               clk,                    // 时钟信号
-    input                               rst,                    // 复位信号
+    input                               clk,                    // Clock Signal
+    input                               rst,                    // Reset Signal
 
     input       [DATA_WIDTH - 1: 0]     A,                      // DATA: A
     input       [DATA_WIDTH - 1: 0]     B,                      // DATA: B

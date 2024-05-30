@@ -3,8 +3,8 @@ module convLayerSingleTB ();
     parameter   FLOAT_MODE              = 0;                    // 0: SInt, 1: Float
     parameter   D                       = 1;                    // fit depth
     parameter   S                       = 3;                    // fit size 5
-    parameter   H                       = 5;                   // img height 32
-    parameter   W                       = 5;                   // img width 32
+    parameter   H                       = 5;                    // img height 32
+    parameter   W                       = 5;                    // img width 32
     reg                                 clk, rst;               // Signal
     reg         [D*H*W*DATA_WIDTH-1: 0] img;                    // We test with a 1*32*32 img
     reg         [D*S*S*DATA_WIDTH-1: 0] fit;                    // We test with a 1*5*5 fit
