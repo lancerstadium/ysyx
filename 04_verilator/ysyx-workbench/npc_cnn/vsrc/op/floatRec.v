@@ -16,40 +16,77 @@ module floatRec  #(
     // ================ Caculate: y[1] ================ //
     reg         [DATA_WIDTH - 1: 0]     P2D;                    // P2 * D
     reg         [DATA_WIDTH - 1: 0]     y1;                     // Iter: y[i+1] = y[i] * (2 - y[i] * D)
+    reg         [DATA_WIDTH - 1: 0]     x1;                     // x1
+    wire        [DATA_WIDTH - 1: 0]     y1Out;                  
 
-    floatMul    #(DATA_WIDTH) yMul1 (P2, D, P2D);           // P2 * D = -y[0]^2 * D
-    floatAdd    #(DATA_WIDTH) yAdd1 (P2D, P1, y1);          // y[1] = P1 + P2D = 2*y[0] - y[0]^2 * D
+    floatMul    #(DATA_WIDTH) yMul1 (P2, D, P2D);               // P2 * D = -y[0]^2 * D
+    floatAdd    #(DATA_WIDTH) yAdd1 (P2D, P1, y1Out);           // y[1] = P1 + P2D = 2*y[0] - y[0]^2 * D
+
 
     // ================ Caculate: y[2] ================ //
     reg         [DATA_WIDTH - 1: 0]     y1D;                    // y[1] * D
     reg         [DATA_WIDTH - 1: 0]     y1S;                    // 2 - y[1] * D
+    reg         [DATA_WIDTH - 1: 0]     x2;                     // x2
     reg         [DATA_WIDTH - 1: 0]     y2;                     // Iter: y[i+1] = y[i] * (2 - y[i] * D)
+    wire        [DATA_WIDTH - 1: 0]     y2Out;
 
-    floatMul    #(DATA_WIDTH) fMul2 (y1, D, y1D);           // y[1] * D
+    floatMul    #(DATA_WIDTH) fMul2 (y1, D, y1D);               // y[1] * D
     floatAdd    #(DATA_WIDTH) ySub2 (TWO, {1'b1, y1D[DATA_WIDTH-2:0]}, y1S); // y[2] = 2 - y[1] * D
-    floatMul    #(DATA_WIDTH) yMul3 (y1, y1S, y2);          // y[2] = y1 * (2 - y[1] * D)
+    floatMul    #(DATA_WIDTH) yMul3 (y1, y1S, y2Out);           // y[2] = y1 * (2 - y[1] * D)
 
 
     /// ================ Caculate: y[3] ================ //
     reg         [DATA_WIDTH - 1: 0]     y2D;                    // y[2] * D
     reg         [DATA_WIDTH - 1: 0]     y2S;                    // 2 - y[2] * D
+    reg         [DATA_WIDTH - 1: 0]     x3;                     // x3
     reg         [DATA_WIDTH - 1: 0]     y3;                     // Iter: y[i+1] = y[i] * (2 - y[i] * D)
+    wire        [DATA_WIDTH - 1: 0]     y3Out;
 
-    floatMul    #(DATA_WIDTH) fMul3 (y2, D, y2D);           // y[2] * D
+    floatMul    #(DATA_WIDTH) fMul3 (y2, D, y2D);               // y[2] * D
     floatAdd    #(DATA_WIDTH) ySub3 (TWO, {1'b1, y2D[DATA_WIDTH-2:0]}, y2S); // y[3] = 2 - y[2] * D
-    floatMul    #(DATA_WIDTH) yMul4 (y2, y2S, y3);          // y[3] = y2 * (2 - y[2] * D)
+    floatMul    #(DATA_WIDTH) yMul4 (y2, y2S, y3Out);           // y[3] = y2 * (2 - y[2] * D)
 
 
     // ================ Caculate: y[4] ================ //
     reg         [DATA_WIDTH - 1: 0]     y3D;                    // y[3] * D
     reg         [DATA_WIDTH - 1: 0]     y3S;                    // 2 - y[3] * D
+    reg         [DATA_WIDTH - 1: 0]     x4;                     // x4
     reg         [DATA_WIDTH - 1: 0]     y4;                     // Iter: y[i+1] = y[i] * (2 - y[i] * D)
+    wire        [DATA_WIDTH - 1: 0]     y4Out;
 
-    floatMul    #(DATA_WIDTH) fMul4 (y3, D, y3D);           // y[3] * D
+    floatMul    #(DATA_WIDTH) fMul4 (y3, D, y3D);               // y[3] * D
     floatAdd    #(DATA_WIDTH) ySub4 (TWO, {1'b1, y3D[DATA_WIDTH-2:0]}, y3S); // y[4] = 2 - y[3] * D
-    floatMul    #(DATA_WIDTH) yMul5 (y3, y3S, y4);          // y[4] = y3 * (2 - y[3] * D)
+    floatMul    #(DATA_WIDTH) yMul5 (y3, y3S, y4Out);           // y[4] = y3 * (2 - y[3] * D)
 
+    // ================ Caculate: Y ================== //
 
-    assign Y = {{X[31], 8'b11111101 - X[30:23]}, y4[22:0]};
+    always @(negedge clk) begin
+        x1 <= X;
+        x2 <= x1;
+        x3 <= x2;
+        x4 <= x3;
+    end
+
+    always @(x1) begin
+        y1 <= y1Out;
+    end
+
+    always @(x2) begin
+        y2 <= y2Out;
+    end
+
+    always @(x3) begin
+        y3 <= y3Out;
+    end
+
+    always @(x4) begin
+        y4 <= y4Out;
+    end
+
+    always @(negedge clk or x4) begin
+        if(y4 != 0) begin
+            Y <= {{x4[31], 8'b11111101 - x4[30:23]}, y4[22:0]};
+        end
+    end
 
 endmodule
