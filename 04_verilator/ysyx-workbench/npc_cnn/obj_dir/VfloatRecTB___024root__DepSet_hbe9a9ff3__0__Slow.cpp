@@ -73,9 +73,6 @@ VL_ATTR_COLD void VfloatRecTB___024root___eval_stl(VfloatRecTB___024root* vlSelf
     // Body
     if ((1ULL & vlSelf->__VstlTriggered.word(0U))) {
         VfloatRecTB___024root___stl_sequent__TOP__0(vlSelf);
-        vlSelf->__Vm_traceActivity[7U] = 1U;
-        vlSelf->__Vm_traceActivity[6U] = 1U;
-        vlSelf->__Vm_traceActivity[5U] = 1U;
         vlSelf->__Vm_traceActivity[4U] = 1U;
         vlSelf->__Vm_traceActivity[3U] = 1U;
         vlSelf->__Vm_traceActivity[2U] = 1U;
@@ -89,16 +86,20 @@ VL_ATTR_COLD void VfloatRecTB___024root___stl_sequent__TOP__0(VfloatRecTB___024r
     VfloatRecTB__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VfloatRecTB___024root___stl_sequent__TOP__0\n"); );
     // Body
-    vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__sign = 1U;
+    vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__sign 
+        = (1U & (~ (vlSelf->floatRecTB__DOT__FA__DOT__D1 
+                    >> 0x1fU)));
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__mantissa = 0U;
-    vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__exponent = 0x80U;
+    vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__exponent 
+        = (0xffU & ((IData)(2U) + (vlSelf->floatRecTB__DOT__FA__DOT__D1 
+                                   >> 0x17U)));
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__fractionA = 0xf0f0f1U;
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__fractionB 
-        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X));
+        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__D1));
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__fraction 
         = (0xffffffffffffULL & (0xf0f0f1ULL * (QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__fractionB))));
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__eout = 0U;
-    if ((0U == (0x3f000000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X)))) {
+    if ((0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__D1))) {
         vlSelf->floatRecTB__DOT__FA__DOT__P2D = 0U;
     } else {
         vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__unnamedblk1__DOT__i = 0x2fU;
@@ -145,21 +146,23 @@ VL_ATTR_COLD void VfloatRecTB___024root___stl_sequent__TOP__0(VfloatRecTB___024r
         }
     }
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__sign 
-        = (vlSelf->floatRecTB__DOT__FA__DOT__y1 >> 0x1fU);
+        = ((vlSelf->floatRecTB__DOT__FA__DOT__y1 ^ vlSelf->floatRecTB__DOT__FA__DOT__D2) 
+           >> 0x1fU);
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__mantissa = 0U;
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__exponent 
-        = (0xffU & ((IData)(1U) + (vlSelf->floatRecTB__DOT__FA__DOT__y1 
-                                   >> 0x17U)));
+        = (0xffU & (((vlSelf->floatRecTB__DOT__FA__DOT__y1 
+                      >> 0x17U) + (vlSelf->floatRecTB__DOT__FA__DOT__D2 
+                                   >> 0x17U)) - (IData)(0x7dU)));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__fractionA 
         = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__y1));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__fractionB 
-        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X));
+        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__D2));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__fraction 
         = (0xffffffffffffULL & ((QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__fractionA)) 
                                 * (QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__fractionB))));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__eout = 0U;
     if (((0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__y1)) 
-         | (0U == (0x3f000000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X))))) {
+         | (0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__D2)))) {
         vlSelf->floatRecTB__DOT__FA__DOT__y1D = 0U;
     } else {
         vlSelf->floatRecTB__DOT__FA__DOT__fMul2__DOT__unnamedblk1__DOT__i = 0x2fU;
@@ -206,21 +209,23 @@ VL_ATTR_COLD void VfloatRecTB___024root___stl_sequent__TOP__0(VfloatRecTB___024r
         }
     }
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__sign 
-        = (vlSelf->floatRecTB__DOT__FA__DOT__y2 >> 0x1fU);
+        = ((vlSelf->floatRecTB__DOT__FA__DOT__y2 ^ vlSelf->floatRecTB__DOT__FA__DOT__D3) 
+           >> 0x1fU);
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__mantissa = 0U;
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__exponent 
-        = (0xffU & ((IData)(1U) + (vlSelf->floatRecTB__DOT__FA__DOT__y2 
-                                   >> 0x17U)));
+        = (0xffU & (((vlSelf->floatRecTB__DOT__FA__DOT__y2 
+                      >> 0x17U) + (vlSelf->floatRecTB__DOT__FA__DOT__D3 
+                                   >> 0x17U)) - (IData)(0x7dU)));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionA 
         = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__y2));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionB 
-        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X));
+        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__D3));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__fraction 
         = (0xffffffffffffULL & ((QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionA)) 
                                 * (QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionB))));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__eout = 0U;
     if (((0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__y2)) 
-         | (0U == (0x3f000000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X))))) {
+         | (0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__D3)))) {
         vlSelf->floatRecTB__DOT__FA__DOT__y2D = 0U;
     } else {
         vlSelf->floatRecTB__DOT__FA__DOT__fMul3__DOT__unnamedblk1__DOT__i = 0x2fU;
@@ -267,21 +272,23 @@ VL_ATTR_COLD void VfloatRecTB___024root___stl_sequent__TOP__0(VfloatRecTB___024r
         }
     }
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__sign 
-        = (vlSelf->floatRecTB__DOT__FA__DOT__y3 >> 0x1fU);
+        = ((vlSelf->floatRecTB__DOT__FA__DOT__y3 ^ vlSelf->floatRecTB__DOT__FA__DOT__D4) 
+           >> 0x1fU);
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__mantissa = 0U;
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__exponent 
-        = (0xffU & ((IData)(1U) + (vlSelf->floatRecTB__DOT__FA__DOT__y3 
-                                   >> 0x17U)));
+        = (0xffU & (((vlSelf->floatRecTB__DOT__FA__DOT__y3 
+                      >> 0x17U) + (vlSelf->floatRecTB__DOT__FA__DOT__D4 
+                                   >> 0x17U)) - (IData)(0x7dU)));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__fractionA 
         = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__y3));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__fractionB 
-        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X));
+        = (0x800000U | (0x7fffffU & vlSelf->floatRecTB__DOT__FA__DOT__D4));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__fraction 
         = (0xffffffffffffULL & ((QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__fractionA)) 
                                 * (QData)((IData)(vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__fractionB))));
     vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__eout = 0U;
     if (((0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__y3)) 
-         | (0U == (0x3f000000U | (0x7fffffU & vlSelf->floatRecTB__DOT__X))))) {
+         | (0U == (0x7fffffffU & vlSelf->floatRecTB__DOT__FA__DOT__D4)))) {
         vlSelf->floatRecTB__DOT__FA__DOT__y3D = 0U;
     } else {
         vlSelf->floatRecTB__DOT__FA__DOT__fMul4__DOT__unnamedblk1__DOT__i = 0x2fU;
@@ -1004,7 +1011,7 @@ VL_ATTR_COLD void VfloatRecTB___024root___dump_triggers__act(VfloatRecTB___024ro
         VL_DBG_MSGF("         'act' region trigger index 4 is active: @([changed] floatRecTB.FA.x4)\n");
     }
     if ((0x20ULL & vlSelf->__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 5 is active: @([changed] floatRecTB.FA.x4 or negedge floatRecTB.clk)\n");
+        VL_DBG_MSGF("         'act' region trigger index 5 is active: @([changed] floatRecTB.FA.x4 or [changed] floatRecTB.FA.y4)\n");
     }
     if ((0x40ULL & vlSelf->__VactTriggered.word(0U))) {
         VL_DBG_MSGF("         'act' region trigger index 6 is active: @([true] __VdlySched.awaitingCurrentTime())\n");
@@ -1037,7 +1044,7 @@ VL_ATTR_COLD void VfloatRecTB___024root___dump_triggers__nba(VfloatRecTB___024ro
         VL_DBG_MSGF("         'nba' region trigger index 4 is active: @([changed] floatRecTB.FA.x4)\n");
     }
     if ((0x20ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 5 is active: @([changed] floatRecTB.FA.x4 or negedge floatRecTB.clk)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 5 is active: @([changed] floatRecTB.FA.x4 or [changed] floatRecTB.FA.y4)\n");
     }
     if ((0x40ULL & vlSelf->__VnbaTriggered.word(0U))) {
         VL_DBG_MSGF("         'nba' region trigger index 6 is active: @([true] __VdlySched.awaitingCurrentTime())\n");
@@ -1057,21 +1064,25 @@ VL_ATTR_COLD void VfloatRecTB___024root___ctor_var_reset(VfloatRecTB___024root* 
     vlSelf->floatRecTB__DOT__FA__DOT__y1 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__x1 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y1Out = VL_RAND_RESET_I(32);
+    vlSelf->floatRecTB__DOT__FA__DOT__D1 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y1D = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y1S = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__x2 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y2 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y2Out = VL_RAND_RESET_I(32);
+    vlSelf->floatRecTB__DOT__FA__DOT__D2 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y2D = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y2S = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__x3 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y3 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y3Out = VL_RAND_RESET_I(32);
+    vlSelf->floatRecTB__DOT__FA__DOT__D3 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y3D = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y3S = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__x4 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y4 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__y4Out = VL_RAND_RESET_I(32);
+    vlSelf->floatRecTB__DOT__FA__DOT__D4 = VL_RAND_RESET_I(32);
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__sign = VL_RAND_RESET_I(1);
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__exponent = VL_RAND_RESET_I(8);
     vlSelf->floatRecTB__DOT__FA__DOT__yMul1__DOT__mantissa = VL_RAND_RESET_I(23);
@@ -1207,8 +1218,9 @@ VL_ATTR_COLD void VfloatRecTB___024root___ctor_var_reset(VfloatRecTB___024root* 
     vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x2__0 = VL_RAND_RESET_I(32);
     vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x3__0 = VL_RAND_RESET_I(32);
     vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x4__0 = VL_RAND_RESET_I(32);
+    vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__y4__0 = VL_RAND_RESET_I(32);
     vlSelf->__VactDidInit = 0;
-    for (int __Vi0 = 0; __Vi0 < 8; ++__Vi0) {
+    for (int __Vi0 = 0; __Vi0 < 5; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

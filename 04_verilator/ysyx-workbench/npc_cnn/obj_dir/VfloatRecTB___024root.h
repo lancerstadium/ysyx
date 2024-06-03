@@ -104,21 +104,25 @@ class alignas(VL_CACHE_LINE_BYTES) VfloatRecTB___024root final : public Verilate
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y1;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__x1;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y1Out;
+        IData/*31:0*/ floatRecTB__DOT__FA__DOT__D1;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y1D;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y1S;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__x2;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y2;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y2Out;
+        IData/*31:0*/ floatRecTB__DOT__FA__DOT__D2;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y2D;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y2S;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__x3;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y3;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y3Out;
+        IData/*31:0*/ floatRecTB__DOT__FA__DOT__D3;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y3D;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y3S;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__x4;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y4;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__y4Out;
+        IData/*31:0*/ floatRecTB__DOT__FA__DOT__D4;
         IData/*22:0*/ floatRecTB__DOT__FA__DOT__yMul1__DOT__mantissa;
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__yMul1__DOT__fractionA;
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__yMul1__DOT__fractionB;
@@ -143,12 +147,12 @@ class alignas(VL_CACHE_LINE_BYTES) VfloatRecTB___024root final : public Verilate
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__yMul3__DOT__fractionB;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__yMul3__DOT__unnamedblk1__DOT__i;
         IData/*22:0*/ floatRecTB__DOT__FA__DOT__fMul3__DOT__mantissa;
+    };
+    struct {
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionA;
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__fMul3__DOT__fractionB;
         IData/*31:0*/ floatRecTB__DOT__FA__DOT__fMul3__DOT__unnamedblk1__DOT__i;
         IData/*22:0*/ floatRecTB__DOT__FA__DOT__ySub3__DOT__mantissa;
-    };
-    struct {
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__ySub3__DOT__fraction;
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__ySub3__DOT__fractionA;
         IData/*23:0*/ floatRecTB__DOT__FA__DOT__ySub3__DOT__fractionB;
@@ -174,6 +178,7 @@ class alignas(VL_CACHE_LINE_BYTES) VfloatRecTB___024root final : public Verilate
         IData/*31:0*/ __Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x2__0;
         IData/*31:0*/ __Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x3__0;
         IData/*31:0*/ __Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x4__0;
+        IData/*31:0*/ __Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__y4__0;
         IData/*31:0*/ __VactIterCount;
         QData/*47:0*/ floatRecTB__DOT__FA__DOT__yMul1__DOT__fraction;
         QData/*47:0*/ floatRecTB__DOT__FA__DOT__fMul2__DOT__fraction;
@@ -182,7 +187,7 @@ class alignas(VL_CACHE_LINE_BYTES) VfloatRecTB___024root final : public Verilate
         QData/*47:0*/ floatRecTB__DOT__FA__DOT__yMul4__DOT__fraction;
         QData/*47:0*/ floatRecTB__DOT__FA__DOT__fMul4__DOT__fraction;
         QData/*47:0*/ floatRecTB__DOT__FA__DOT__yMul5__DOT__fraction;
-        VlUnpacked<CData/*0:0*/, 8> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 5> __Vm_traceActivity;
     };
     VlDelayScheduler __VdlySched;
     VlTriggerVec<1> __VstlTriggered;

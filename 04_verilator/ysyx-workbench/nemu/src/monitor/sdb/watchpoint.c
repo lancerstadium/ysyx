@@ -22,7 +22,8 @@ typedef struct watchpoint {
   struct watchpoint *next;
 
   /* TODO: Add more members if necessary */
-
+  char* e;
+  unsigned res;
 } WP;
 
 static WP wp_pool[NR_WP] = {};
@@ -41,12 +42,26 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
-WP* new_wp() {
+int new_wp(char* e) {
+
   if (free_ == NULL) {
-    return NULL;
+    printf("No extra free wp\n");
+    return -1;
   }
   WP* wp = free_;
   free_ = free_->next;
+
+  // deal with expr
+  bool success;
+  unsigned res = expr(e, &success);
+  if(success) {
+    wp->e = malloc(strlen(e) + 1);
+    strcpy(wp->e, e);
+    wp->res = res;
+  } else {
+    printf("Set wp expr fail: %s\n", e);
+    return -1;
+  }
 
   // find final head
   WP* tmp = head;
@@ -59,16 +74,25 @@ WP* new_wp() {
     tmp->next = wp;
   }
   wp->next = NULL;
-
-  return wp;
+  printf("Set wp (expr: %s) at NO.%d\n", wp->e, wp->NO);
+  return wp->NO;
 }
 
 
-void free_wp(WP *wp) {
+void free_wp(int n) {
+  if(n < 0 || n >= NR_WP) {
+    printf("Invalid wp idx: %d\n", n);
+    return;
+  }
+  WP *wp = &wp_pool[n];
+
   // find in head
   WP* tmp = head;
   if(tmp == NULL) {
+    printf("No wp to free: %d\n", n);
     return;
+  } else if (tmp == wp) {
+    head = wp->next;
   } else {
     while (tmp->next != NULL) {
       if (tmp->next == wp) {
@@ -91,5 +115,32 @@ void free_wp(WP *wp) {
   }
   wp->next = NULL;
 
+  printf("Free wp (expr: %s) at NO.%d\n", wp->e, wp->NO);
+  free(wp->e);
+  wp->e = NULL;
+  wp->res = 0;
 
+}
+
+void info_wp(int n) {
+  if(n >= 0 && n < NR_WP) {
+    WP *wp = &wp_pool[n];
+    printf("- [%2d] expr: %s, res: %u\n", wp->NO, wp->e, wp->res);
+  } else {
+    WP* tmp = head;
+    printf("[Busy wp]: \n");
+    while (tmp != NULL) {
+      printf("- [%2d] expr: %s, res: %u\n", tmp->NO, tmp->e, tmp->res);
+      tmp = tmp->next;
+    }
+    // tmp = free_;
+    // if (tmp != NULL) {
+    //   printf("[Free wp]: \n");
+    //   while (tmp->next != NULL) {
+    //     printf("- [%2d] expr: %s, res: %u\n", tmp->NO, tmp->e, tmp->res);
+    //     tmp = tmp->next;
+    //   }
+    // }
+  }
+  return;
 }

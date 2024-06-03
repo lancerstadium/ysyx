@@ -27,8 +27,8 @@ void VfloatRecTB___024root___eval_triggers__act(VfloatRecTB___024root* vlSelf) {
                                      != vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x4__0));
     vlSelf->__VactTriggered.set(5U, ((vlSelf->floatRecTB__DOT__FA__DOT__x4 
                                       != vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x4__0) 
-                                     | ((~ (IData)(vlSelf->floatRecTB__DOT__clk)) 
-                                        & (IData)(vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__clk__0))));
+                                     | (vlSelf->floatRecTB__DOT__FA__DOT__y4 
+                                        != vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__y4__0)));
     vlSelf->__VactTriggered.set(6U, vlSelf->__VdlySched.awaitingCurrentTime());
     vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__clk__0 
         = vlSelf->floatRecTB__DOT__clk;
@@ -40,6 +40,8 @@ void VfloatRecTB___024root___eval_triggers__act(VfloatRecTB___024root* vlSelf) {
         = vlSelf->floatRecTB__DOT__FA__DOT__x3;
     vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__x4__0 
         = vlSelf->floatRecTB__DOT__FA__DOT__x4;
+    vlSelf->__Vtrigprevexpr___TOP__floatRecTB__DOT__FA__DOT__y4__0 
+        = vlSelf->floatRecTB__DOT__FA__DOT__y4;
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->__VactDidInit))))) {
         vlSelf->__VactDidInit = 1U;
         vlSelf->__VactTriggered.set(1U, 1U);

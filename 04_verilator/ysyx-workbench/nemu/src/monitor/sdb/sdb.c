@@ -65,7 +65,9 @@ static int cmd_info(char *args) {
     if (strcmp(sub, "r") == 0) {
       isa_reg_display();
     } else if (strcmp(sub, "w") == 0) {
-      /// TODO: implement info w
+      info_wp(-1);
+    } else {
+      printf("Usage: info [r|w]\n");
     }
   }
   return 0;
@@ -98,7 +100,7 @@ static int cmd_w(char *args) {
   if (sub == NULL) {
     printf("Usage: w [expr]\n");
   } else {
-    /// TODO: implement w
+    new_wp(sub);
   }
   return 0;
 }
@@ -106,7 +108,8 @@ static int cmd_w(char *args) {
 static int cmd_d(char *args) {
   char *sub = strtok(args, " ");
   if (sub != NULL) {
-    //   uint64_t n = strtol(sub, NULL, 10);
+    int n = atoi(sub);
+    free_wp(n);
   } else {
     printf("Usage: d [n]\n");
   }
