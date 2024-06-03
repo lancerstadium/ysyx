@@ -46,4 +46,7 @@ typedef uint16_t ioaddr_t;
 
 #include <debug.h>
 
+// watch point
+int scan_wp(bool *change);
+
 #endif

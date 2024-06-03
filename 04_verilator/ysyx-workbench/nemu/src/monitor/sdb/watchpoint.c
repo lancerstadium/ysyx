@@ -133,14 +133,32 @@ void info_wp(int n) {
       printf("- [%2d] expr: %s, res: %u\n", tmp->NO, tmp->e, tmp->res);
       tmp = tmp->next;
     }
-    // tmp = free_;
-    // if (tmp != NULL) {
-    //   printf("[Free wp]: \n");
-    //   while (tmp->next != NULL) {
-    //     printf("- [%2d] expr: %s, res: %u\n", tmp->NO, tmp->e, tmp->res);
-    //     tmp = tmp->next;
-    //   }
-    // }
   }
   return;
+}
+
+int scan_wp(bool *change) {
+  WP* tmp = head;
+  *change = false;
+  int n = -1;
+  while (tmp != NULL) {
+    // deal with expr
+    bool success;
+    char* e = malloc(strlen(tmp->e) + 1);
+    strcpy(e, tmp->e);
+    unsigned res = expr(e, &success);
+    if(success) {
+      if (tmp->res != res)  {
+        printf("Scan wp (%s) change: %u -> %u\n", tmp->e, tmp->res, res);
+        tmp->res = res;
+        *change = true;
+        n = tmp->NO;
+        break;
+      }
+    } else {
+      printf("Scan wp expr fail: %s\n", e);
+    }
+    tmp = tmp->next;
+  }
+  return n;
 }

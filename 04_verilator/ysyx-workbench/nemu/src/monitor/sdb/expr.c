@@ -219,6 +219,10 @@ static word_t eval(int p, int q) {
         return res;
     } else if (t_p == '(' && t_q == ')') {
         return eval(p + 1, q - 1);
+    } else if ((p < q) && (t_p == TK_NOTYPE)) {
+        return eval(p + 1, q);
+    } else if ((p < q) && (t_q == TK_NOTYPE)) {
+        return eval(p, q - 1);
     } else {
         bool success;
         int op = find_op(p, q, &success);
