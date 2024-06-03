@@ -47,10 +47,76 @@ static int cmd_c(char *args) {
   return 0;
 }
 
+static int cmd_si(char *args) {
+  char *sub = strtok(args, " ");
+  uint64_t n = 1;
+  if (sub != NULL) {
+    n = strtol(sub, NULL, 10);
+  }
+  cpu_exec(n);
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub == NULL) {
+    printf("Usage: info [r|w]\n");
+  } else {
+    if (strcmp(sub, "r") == 0) {
+      isa_reg_display();
+    } else if (strcmp(sub, "w") == 0) {
+      /// TODO: implement info w
+    }
+  }
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub == NULL) {
+    printf("Usage: x [N] [expr]\n");
+  } else {
+    /// TODO: implement x
+  }
+  return 0;
+}
+
+static int cmd_p(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub == NULL) {
+    printf("Usage: p [expr]\n");
+  } else {
+    bool success;
+    unsigned res = expr(sub, &success);
+    if (success) printf("%s = %u\n", sub, res);
+  }
+  return 0;
+}
+
+static int cmd_w(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub == NULL) {
+    printf("Usage: w [expr]\n");
+  } else {
+    /// TODO: implement w
+  }
+  return 0;
+}
+
+static int cmd_d(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub != NULL) {
+    //   uint64_t n = strtol(sub, NULL, 10);
+  } else {
+    printf("Usage: d [n]\n");
+  }
+  return 0;
+}
 
 static int cmd_q(char *args) {
   return -1;
 }
+
 
 static int cmd_help(char *args);
 
@@ -59,9 +125,15 @@ static struct {
   const char *description;
   int (*handler) (char *);
 } cmd_table [] = {
-  { "help", "Display information about all supported commands", cmd_help },
-  { "c", "Continue the execution of the program", cmd_c },
-  { "q", "Exit NEMU", cmd_q },
+  { "help", "Display information about all supported commands"  , cmd_help },
+  { "info", "Info of [r/w]"                                     , cmd_info },
+  { "si"  , "Single step execution [N]"                         , cmd_si   },
+  { "p"   , "Caculate the value of [expr]"                      , cmd_p    },
+  { "x"   , "Scan Memory [N expr]"                              , cmd_x    },
+  { "w"   , "Set watchpoint [expr]"                             , cmd_w    },
+  { "d"   , "Delete watchpoint [N]"                             , cmd_d    },
+  { "c"   , "Continue the execution of the program"             , cmd_c    },
+  { "q"   , "Exit NEMU"                                         , cmd_q    },
 
   /* TODO: Add more commands */
 

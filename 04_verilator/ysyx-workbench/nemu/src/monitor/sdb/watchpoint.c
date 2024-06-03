@@ -41,3 +41,55 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 
+WP* new_wp() {
+  if (free_ == NULL) {
+    return NULL;
+  }
+  WP* wp = free_;
+  free_ = free_->next;
+
+  // find final head
+  WP* tmp = head;
+  if (tmp == NULL) {
+    head = wp;
+  } else {
+    while (tmp->next != NULL) {
+      tmp = tmp->next;
+    }
+    tmp->next = wp;
+  }
+  wp->next = NULL;
+
+  return wp;
+}
+
+
+void free_wp(WP *wp) {
+  // find in head
+  WP* tmp = head;
+  if(tmp == NULL) {
+    return;
+  } else {
+    while (tmp->next != NULL) {
+      if (tmp->next == wp) {
+        tmp->next = wp->next;
+        break;
+      }
+      tmp = tmp->next;
+    }
+  }
+
+  // find final free_
+  tmp = free_;
+  if (tmp == NULL) {
+    free_ = wp;
+  } else {
+    while (tmp->next != NULL) {
+      tmp = tmp->next;
+    }
+    tmp->next = wp;
+  }
+  wp->next = NULL;
+
+
+}
