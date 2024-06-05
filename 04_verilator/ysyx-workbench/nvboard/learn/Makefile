@@ -1,5 +1,12 @@
-TOPNAME = top
-NXDC_FILES = constr/top.nxdc
+
+FIRST_GOAL := $(firstword $(MAKECMDGOALS))
+SECOND_GOAL := $(word 2, $(MAKECMDGOALS))
+THIRD_GOAL := $(word 3, $(MAKECMDGOALS))
+
+# TOPNAME = top
+# NXDC_FILES = constr/top.nxdc
+TOPNAME := $(if $(SECOND_GOAL),$(SECOND_GOAL)TB,top)
+NXDC_FILES = constr/$(TOPNAME).nxdc
 INC_PATH ?=
 
 VERILATOR = verilator
@@ -21,24 +28,22 @@ $(SRC_AUTO_BIND): $(NXDC_FILES)
 
 # project source
 VSRCS = $(shell find $(abspath ./vsrc) -name "*.v")
-CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+# CSRCS = $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+CTEMP = $(abspath ./csrc/top.cpp)
+CTOP = $(abspath ./csrc/$(TOPNAME).cpp)
+CSRCS = $(CTOP)
 CSRCS += $(SRC_AUTO_BIND)
 
 
 # === user def === #
 SIMFLAGS = -cc -trace --timing -exe --build
-
-FIRST_GOAL := $(firstword $(MAKECMDGOALS))
-SECOND_GOAL := $(word 2, $(MAKECMDGOALS))
-THIRD_GOAL := $(word 3, $(MAKECMDGOALS))
-
-TB_ITEM := mux41_2
+TB_ITEM := enc8_3 mux41_2 alu4 lfsr255
 TB_NAME := $(if $(SECOND_GOAL),$(SECOND_GOAL),top)
 TB_CSRC := $(abspath ./ctb/$(TB_NAME).cpp)
 TB_EXEC := $(OBJ_DIR)/V$(TB_NAME)
 WAVE_NAME := ./$(TB_NAME).vcd
 # === user def === #
-
+GEN_TB = 0
 
 # rules for NVBoard
 include $(NVBOARD_HOME)/scripts/nvboard.mk
@@ -46,6 +51,15 @@ include $(NVBOARD_HOME)/scripts/nvboard.mk
 # rules for verilator
 INCFLAGS = $(addprefix -I, $(INC_PATH))
 CXXFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+
+
+gen_tb:
+	@echo "------------------- TestBench GEN ----------------------"
+	cp $(CTEMP) $(CTOP)
+	sed -i 's/top/$(TOPNAME)/g' $(CTOP)
+	@echo "TestBench file: $(CTOP)"
+	@echo "------------------- TestBench GEN DONE -----------------"
+
 
 $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 	@rm -rf $(OBJ_DIR)
@@ -57,6 +71,9 @@ $(BIN): $(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 all: default
 
 run: $(BIN)
+ifneq ($(GEN_TB),0)
+	make gen_tb $(SECOND_GOAL)
+endif
 	@$^
 
 build: $(VSRCS) $(TB_CSRC)
