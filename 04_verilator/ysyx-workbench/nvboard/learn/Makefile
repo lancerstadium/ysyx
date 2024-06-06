@@ -37,7 +37,7 @@ CSRCS += $(SRC_AUTO_BIND)
 
 # === user def === #
 SIMFLAGS = -cc -trace --timing -exe --build
-TB_ITEM := enc8_3 mux41_2 alu4 lfsr255
+TB_ITEM := enc8_3 mux41_2 alu4 lfsr255 fsmEasy ps2_keyboard			# << ADD ITEM HERE !!!!
 TB_NAME := $(if $(SECOND_GOAL),$(SECOND_GOAL),top)
 TB_CSRC := $(abspath ./ctb/$(TB_NAME).cpp)
 TB_EXEC := $(OBJ_DIR)/V$(TB_NAME)
@@ -72,7 +72,7 @@ all: default
 
 run: $(BIN)
 ifneq ($(GEN_TB),0)
-	make gen_tb $(SECOND_GOAL)
+	@make gen_tb $(SECOND_GOAL)
 endif
 	@$^
 
