@@ -1,0 +1,13 @@
+DEBUG tests/libex29_tests.c:38: ----- RUNNING: ./tests/libex29_tests
+DEBUG tests/libex29_tests.c:30: 
+----- test_dlopen
+DEBUG tests/libex29_tests.c:31: 
+----- test_functions
+DEBUG tests/libex29_tests.c:32: 
+----- test_failures
+DEBUG tests/libex29_tests.c:33: 
+----- test_dlclose
+DEBUG tests/libex29_tests.c:64: ----- RUNNING: ./tests/libex29_tests
+DEBUG tests/libex29_tests.c:56: 
+----- test_dlopen
+[ERROR] (tests/libex29_tests.c:24: errno: None) Failed to open the library to test.

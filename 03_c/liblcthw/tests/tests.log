@@ -1,0 +1,142 @@
+DEBUG tests/list_algos_tests.c:91: ----- RUNNING(1): ./tests/list_algos_tests
+DEBUG tests/list_algos_tests.c:85: 
+----- test_bubble_sort
+DEBUG tests/list_algos_tests.c:86: 
+----- test_merge_sort
+DEBUG tests/list_tests.c:113: ----- RUNNING(1): ./tests/list_tests
+DEBUG tests/list_tests.c:103: 
+----- test_create
+DEBUG tests/list_tests.c:104: 
+----- test_push_pop
+DEBUG tests/list_tests.c:105: 
+----- test_unshift
+DEBUG tests/list_tests.c:106: 
+----- test_remove
+DEBUG tests/list_tests.c:107: 
+----- test_shift
+DEBUG tests/list_tests.c:108: 
+----- test_destroy
+DEBUG tests/queue_tests.c:62: ----- RUNNING(1): ./tests/queue_tests
+DEBUG tests/queue_tests.c:55: 
+----- test_create
+DEBUG tests/queue_tests.c:56: 
+----- test_send_recv
+DEBUG tests/queue_tests.c:39: VAL: test1 data
+DEBUG tests/queue_tests.c:39: VAL: test2 data
+DEBUG tests/queue_tests.c:39: VAL: test3 data
+DEBUG tests/queue_tests.c:57: 
+----- test_destroy
+DEBUG tests/ring_buffer_tests.c:96: ----- RUNNING(1): ./tests/ring_buffer_tests
+DEBUG tests/ring_buffer_tests.c:89: 
+----- test_create
+DEBUG tests/ring_buffer_tests.c:90: 
+----- test_read_write
+DEBUG tests/ring_buffer_tests.c:26: data is: 0, space is: 100
+[ERROR] (tests/ring_buffer_tests.c:37: errno: None) Invalid available data.
+DEBUG tests/list_algos_tests.c:91: ----- RUNNING(1): ./tests/list_algos_tests
+DEBUG tests/list_algos_tests.c:85: 
+----- test_bubble_sort
+DEBUG tests/list_algos_tests.c:86: 
+----- test_merge_sort
+DEBUG tests/list_tests.c:113: ----- RUNNING(1): ./tests/list_tests
+DEBUG tests/list_tests.c:103: 
+----- test_create
+DEBUG tests/list_tests.c:104: 
+----- test_push_pop
+DEBUG tests/list_tests.c:105: 
+----- test_unshift
+DEBUG tests/list_tests.c:106: 
+----- test_remove
+DEBUG tests/list_tests.c:107: 
+----- test_shift
+DEBUG tests/list_tests.c:108: 
+----- test_destroy
+DEBUG tests/queue_tests.c:62: ----- RUNNING(1): ./tests/queue_tests
+DEBUG tests/queue_tests.c:55: 
+----- test_create
+DEBUG tests/queue_tests.c:56: 
+----- test_send_recv
+DEBUG tests/queue_tests.c:39: VAL: test1 data
+DEBUG tests/queue_tests.c:39: VAL: test2 data
+DEBUG tests/queue_tests.c:39: VAL: test3 data
+DEBUG tests/queue_tests.c:57: 
+----- test_destroy
+DEBUG tests/ring_buffer_tests.c:96: ----- RUNNING(1): ./tests/ring_buffer_tests
+DEBUG tests/ring_buffer_tests.c:89: 
+----- test_create
+DEBUG tests/ring_buffer_tests.c:90: 
+----- test_read_write
+DEBUG tests/ring_buffer_tests.c:26: data is: 0, space is: 100
+[ERROR] (tests/ring_buffer_tests.c:38: errno: None) Buffer should be full.
+DEBUG tests/list_algos_tests.c:91: ----- RUNNING(1): ./tests/list_algos_tests
+DEBUG tests/list_algos_tests.c:85: 
+----- test_bubble_sort
+DEBUG tests/list_algos_tests.c:86: 
+----- test_merge_sort
+DEBUG tests/list_tests.c:113: ----- RUNNING(1): ./tests/list_tests
+DEBUG tests/list_tests.c:103: 
+----- test_create
+DEBUG tests/list_tests.c:104: 
+----- test_push_pop
+DEBUG tests/list_tests.c:105: 
+----- test_unshift
+DEBUG tests/list_tests.c:106: 
+----- test_remove
+DEBUG tests/list_tests.c:107: 
+----- test_shift
+DEBUG tests/list_tests.c:108: 
+----- test_destroy
+DEBUG tests/queue_tests.c:62: ----- RUNNING(1): ./tests/queue_tests
+DEBUG tests/queue_tests.c:55: 
+----- test_create
+DEBUG tests/queue_tests.c:56: 
+----- test_send_recv
+DEBUG tests/queue_tests.c:39: VAL: test1 data
+DEBUG tests/queue_tests.c:39: VAL: test2 data
+DEBUG tests/queue_tests.c:39: VAL: test3 data
+DEBUG tests/queue_tests.c:57: 
+----- test_destroy
+DEBUG tests/ring_buffer_tests.c:96: ----- RUNNING(1): ./tests/ring_buffer_tests
+DEBUG tests/ring_buffer_tests.c:89: 
+----- test_create
+DEBUG tests/ring_buffer_tests.c:90: 
+----- test_read_write
+DEBUG tests/ring_buffer_tests.c:26: data is: 0, space is: 100
+[ERROR] (src/lcthw/ringbuffer.c:39: errno: None) Not enough space: -1 request, 4 available
+[ERROR] (tests/ring_buffer_tests.c:50: errno: None) Failed to write Zed.
+DEBUG tests/list_algos_tests.c:91: ----- RUNNING(1): ./tests/list_algos_tests
+DEBUG tests/list_algos_tests.c:85: 
+----- test_bubble_sort
+DEBUG tests/list_algos_tests.c:86: 
+----- test_merge_sort
+DEBUG tests/list_tests.c:113: ----- RUNNING(1): ./tests/list_tests
+DEBUG tests/list_tests.c:103: 
+----- test_create
+DEBUG tests/list_tests.c:104: 
+----- test_push_pop
+DEBUG tests/list_tests.c:105: 
+----- test_unshift
+DEBUG tests/list_tests.c:106: 
+----- test_remove
+DEBUG tests/list_tests.c:107: 
+----- test_shift
+DEBUG tests/list_tests.c:108: 
+----- test_destroy
+DEBUG tests/queue_tests.c:62: ----- RUNNING(1): ./tests/queue_tests
+DEBUG tests/queue_tests.c:55: 
+----- test_create
+DEBUG tests/queue_tests.c:56: 
+----- test_send_recv
+DEBUG tests/queue_tests.c:39: VAL: test1 data
+DEBUG tests/queue_tests.c:39: VAL: test2 data
+DEBUG tests/queue_tests.c:39: VAL: test3 data
+DEBUG tests/queue_tests.c:57: 
+----- test_destroy
+DEBUG tests/ring_buffer_tests.c:96: ----- RUNNING(1): ./tests/ring_buffer_tests
+DEBUG tests/ring_buffer_tests.c:89: 
+----- test_create
+DEBUG tests/ring_buffer_tests.c:90: 
+----- test_read_write
+DEBUG tests/ring_buffer_tests.c:26: data is: 0, space is: 100
+[ERROR] (src/lcthw/ringbuffer.c:39: errno: None) Not enough space: -1 request, 11 available
+[ERROR] (tests/ring_buffer_tests.c:68: errno: None) Failed to write a bstring.
