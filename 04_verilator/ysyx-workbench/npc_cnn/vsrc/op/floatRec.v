@@ -6,6 +6,7 @@ module floatRec  #(
     input       [DATA_WIDTH - 1: 0]     X,                      // F16/32/64: X
     output reg  [DATA_WIDTH - 1: 0]     Y                       // F16/32/64: Y = 1/X
 );
+    // ================= Initialize ================== //
 
     localparam  P1 = 32'b01000000001101001011010010110101;      // 2*y[0] = 43/17
     localparam  P2 = 32'b10111111111100001111000011110001;      // -y[0]^2 = -32/17
