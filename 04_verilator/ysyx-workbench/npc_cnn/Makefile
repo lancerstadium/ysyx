@@ -9,7 +9,7 @@ FIRST_GOAL := $(firstword $(MAKECMDGOALS))
 SECOND_GOAL := $(word 2, $(MAKECMDGOALS))
 THIRD_GOAL := $(word 3, $(MAKECMDGOALS))
 
-TB_ITEM := floatRec floatDiv procElem convUnit convLayerSingle convLayerMulti exponent
+TB_ITEM := floatRec floatDiv procElem convUnit convLayerSingle convLayerMulti exponent softmax
 TB_TEMP := ./tmp/testBench.cpp
 TB_NAME := $(if $(SECOND_GOAL),$(SECOND_GOAL)TB,top)
 TB_EXEC := obj_dir/V$(TB_NAME)

@@ -29,6 +29,7 @@ module exponentTB();
         while (ack!=1'b1) begin //7 clock cycles to finish
             #(PERIOD);
         end
+        $display("y=%b", Y);
         // output is 0.383025914431 and real should be 0.38289288597511206
         $finish;
     end
