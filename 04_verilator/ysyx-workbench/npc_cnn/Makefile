@@ -48,7 +48,6 @@ endif
 	@echo "------------------- VERILATE BUILD DONE ----------------"
 
 sim: build
-	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	@echo "---------------------- SIM RUN -------------------------"
 	$(TB_EXEC)
 	@echo "---------------------- SIM DONE ------------------------"

@@ -91,7 +91,7 @@ module softmax1(inputs,clk,enb,outputs,ackSoft);
     wire [inputNum-1:0] acksExp; //acknowledge signals of exponents 
     // wire ackDiv; //ack signal of the division unit
     wire [DATA_WIDTH-1:0] expSums [inputNum:0]; //used in the multiple adders to connected to each other
-    reg [3:0] mulCounter;
+    reg [3:0] mulCnt;
 
     assign expSums[0]=32'b00000000000000000000000000000000; //first one is zero to move the flow
     assign expSum=expSums[inputNum]; //last one in the sum
@@ -115,19 +115,18 @@ module softmax1(inputs,clk,enb,outputs,ackSoft);
         end
     endgenerate //generating 10 parallel adding modules to get the sum of the exponents
 
-    floatRec #(.DATA_WIDTH(DATA_WIDTH)) FR (.X(expSum),.clk(clk),.Y(expRec));//getting reciprocal of the sum of exponents
+    floatRec #(.DATA_WIDTH(DATA_WIDTH)) FR (.X(expSum),.clk(clk),.Y(expRec));                           // getting reciprocal of the sum of exponents
     //reciprocal activated when exponent finished
-    floatMul #(.DATA_WIDTH(DATA_WIDTH)) FM1 (exponents[DATA_WIDTH*mulCounter+:DATA_WIDTH],expRec,outMul); //multiplication with reciprocal
+    floatMul #(.DATA_WIDTH(DATA_WIDTH)) FM1 (exponents[DATA_WIDTH*mulCnt+:DATA_WIDTH],expRec,outMul);   // multiplication with reciprocal
 
     always @ (negedge clk) begin
         if(enb==1'b1) begin
             if(ackSoft==1'b0) begin 
                 // if(ackDiv==1'b1) begin //check if the reciprocal is ready
-                    if(mulCounter<4'b1010) begin
-                        outputs[DATA_WIDTH*mulCounter+:DATA_WIDTH]=outMul;
-                        mulCounter=mulCounter+1;
-                    end
-                    else begin
+                    if(mulCnt<4'b1010) begin
+                        outputs[DATA_WIDTH*mulCnt+:DATA_WIDTH]=outMul;
+                        mulCnt=mulCnt+1;
+                    end else begin
                         ackSoft=1'b1;
                     end
                 // end
@@ -135,7 +134,7 @@ module softmax1(inputs,clk,enb,outputs,ackSoft);
         end
         else begin
             //if enb is off reset all counters and acks
-            mulCounter=4'b0000;
+            mulCnt=4'b0000;
             ackSoft=1'b0;
         end
         

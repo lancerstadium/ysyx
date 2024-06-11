@@ -28,8 +28,8 @@ module exponent #(
             mulA = 32'b00111111100000000000000000000000;        // Init: 1
             outReg = 32'b00000000000000000000000000000000;      // Init: 0
             Y = 32'b00000000000000000000000000000000;           // Output: 0 until ack is 1
-            ack = 1'b0;                                         // Acknowledge is 0 at the beginning
             divisors = 224'b00111110001010101010101010101011_00111110010011001100110011001101_00111110100000000000000000000000_00111110101010101010101010101011_00111111000000000000000000000000_00111111100000000000000000000000_00111111100000000000000000000000;
+            ack = 1'b0;                                         // Acknowledge is 0 at the beginning
         end else begin
             oneOrX = X;
             mulA = outM2;                                       // get the output of the second multiplication to multiply with X

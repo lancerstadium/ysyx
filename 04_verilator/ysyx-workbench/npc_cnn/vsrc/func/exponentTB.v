@@ -13,8 +13,10 @@ module exponentTB();
 
     initial begin
         clk=1'b1;
-        X=32'b00111111010101100110110011110100; //0.8376
+        #(PERIOD);
         enb=1'b0;
+        X=32'b00111111010101100110110011110100; //0.8376
+
         #(PERIOD);
         enb=1'b1;
         while (ack!=1'b1) begin //7 clock cycles to finish
@@ -31,6 +33,16 @@ module exponentTB();
         end
         $display("y=%b", Y);
         // output is 0.383025914431 and real should be 0.38289288597511206
+
+        X=32'b00111111010101100110110011110100; //0.8376
+        enb=1'b0;
+        #(PERIOD);
+        enb=1'b1;
+        while (ack!=1'b1) begin //7 clock cycles to finish
+            #(PERIOD);
+        end
+        //output is 2.31074953079 and real should be 2.310814361840001 
+        $display("y=%b", Y);
         $finish;
     end
 
