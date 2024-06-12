@@ -2,15 +2,29 @@ module floatDiv  #(
     parameter   DATA_WIDTH              = 32                    // Data width, default: 32 bits
 ) (
     input                               clk,                    // Clock Signal
+    input                               enb,                    // Enable Signal
     
     input       [DATA_WIDTH - 1: 0]     A,                      // F16/32/64: A
     input       [DATA_WIDTH - 1: 0]     B,                      // F16/32/64: B
+
+    output reg                          ack,                    // Acknow Signal
     output reg  [DATA_WIDTH - 1: 0]     C                       // F16/32/64: C
 );
-
+    // Data Parameters
+    localparam  EXPONENT_WIDTH = 
+    (DATA_WIDTH == 16) ?        5 : 
+    (DATA_WIDTH == 32) ?        8 : 
+    (DATA_WIDTH == 64) ?       11 :     8;                      // Default: 8
+    localparam  MANTISSA_WIDTH = 
+    (DATA_WIDTH == 16) ?       10 : 
+    (DATA_WIDTH == 32) ?       23 : 
+    (DATA_WIDTH == 64) ?       52 :    23;                      // Default: 23
     localparam  P1 = 32'b01000000001101001011010010110101;      // 2*c[0] = 43/17
     localparam  P2 = 32'b10111111111100001111000011110001;      // -c[0]^2 = -32/17
     localparam  TWO = 32'h40000000;                             // 2 
+    localparam  STAGE = 4;
+
+    reg         [STAGE - 1: 0]          signal;                 // Signal
 
     // ================ Caculate: c[1] ================ //
     reg         [DATA_WIDTH - 1: 0]     P2D;                    // P2 * D
@@ -72,23 +86,46 @@ module floatDiv  #(
 
     floatMul    #(DATA_WIDTH) cMul6 (cFinal, aFinal, C);        // c[4] = c3 * (2 - c[3] * D)
 
-    always @(negedge clk) begin
-        a1 <= A;
-        a2 <= a1;
-        a3 <= a2;
-        a4 <= a3;
-        aFinal <= a4;
+    always @(posedge clk) begin
+        if(enb) begin
+            a1 <= A;
+            a2 <= a1;
+            a3 <= a2;
+            a4 <= a3;
+            aFinal <= a4;
 
-        b1 <= B;
-        b2 <= b1;
-        b3 <= b2;
-        b4 <= b3;
-        bFinal <= b4;
+            b1 <= B;
+            b2 <= b1;
+            b3 <= b2;
+            b4 <= b3;
+            bFinal <= b4;
 
-        D1 <= {{1'b0, 8'b01111110}, B[22: 0]};
-        D2 <= D1;
-        D3 <= D2;
-        D4 <= D3;
+            D1 <= {{1'b0, 8'b01111110}, B[MANTISSA_WIDTH - 1: 0]};
+            D2 <= D1;
+            D3 <= D2;
+            D4 <= D3;
+
+            {ack, signal} <= {signal, 1'b1};
+        end else begin
+            a1 <= 0;
+            a2 <= a1;
+            a3 <= a2;
+            a4 <= a3;
+            aFinal <= a4;
+
+            b1 <= 0;
+            b2 <= b1;
+            b3 <= b2;
+            b4 <= b3;
+            bFinal <= b4;
+
+            D1 <= 0;
+            D2 <= D1;
+            D3 <= D2;
+            D4 <= D3;
+
+            {ack, signal} <= {signal, 1'b0};
+        end
     end
 
     always @(a1) begin
@@ -111,7 +148,7 @@ module floatDiv  #(
 
     always @(aFinal) begin
         if (c4 != 0) begin
-            cFinal <= {{bFinal[31], 8'b11111101 - bFinal[30:23]}, c4[22:0]};
+            cFinal <= {{bFinal[DATA_WIDTH - 1], 8'b11111101 - bFinal[DATA_WIDTH - 2: MANTISSA_WIDTH]}, c4[MANTISSA_WIDTH - 1: 0]};
         end
     end
 

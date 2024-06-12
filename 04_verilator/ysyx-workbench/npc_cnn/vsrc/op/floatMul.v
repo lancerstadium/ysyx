@@ -6,19 +6,19 @@ module floatMul #(
     output reg  [DATA_WIDTH - 1: 0]     C                       // F16/32/64: C
 );
     // Data Parameters
-    parameter   EXPONENT_WIDTH = 
+    localparam  EXPONENT_WIDTH = 
     (DATA_WIDTH == 16) ?        5 : 
     (DATA_WIDTH == 32) ?        8 : 
     (DATA_WIDTH == 64) ?       11 :     8;                      // Default: 8
-    parameter   MANTISSA_WIDTH = 
+    localparam  MANTISSA_WIDTH = 
     (DATA_WIDTH == 16) ?       10 : 
     (DATA_WIDTH == 32) ?       23 : 
     (DATA_WIDTH == 64) ?       52 :    23;                      // Default: 23
-    parameter   EXPONENT_OFFSET =
+    localparam  EXPONENT_OFFSET =
     (DATA_WIDTH == 16) ?       13 : 
     (DATA_WIDTH == 32) ?      125 : 
     (DATA_WIDTH == 64) ?     1021 :   125;                      // Default: 125
-    parameter   FRACTION_WIDTH      =  MANTISSA_WIDTH * 2 + 1;
+    localparam  FRACTION_WIDTH      =  MANTISSA_WIDTH * 2 + 1;
 
     // C: {sign, exponent, mantissa}
     reg                                 sign;
