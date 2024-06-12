@@ -11,6 +11,7 @@ module floatDiv  #(
     output reg  [DATA_WIDTH - 1: 0]     C                       // F16/32/64: C
 );
     // Data Parameters
+    localparam  MAX_WIDTH = 64;
     localparam  EXPONENT_WIDTH = 
     (DATA_WIDTH == 16) ?        5 : 
     (DATA_WIDTH == 32) ?        8 : 
@@ -19,11 +20,33 @@ module floatDiv  #(
     (DATA_WIDTH == 16) ?       10 : 
     (DATA_WIDTH == 32) ?       23 : 
     (DATA_WIDTH == 64) ?       52 :    23;                      // Default: 23
-    localparam  P1 = 32'b01000000001101001011010010110101;      // 2*c[0] = 43/17
-    localparam  P2 = 32'b10111111111100001111000011110001;      // -c[0]^2 = -32/17
-    localparam  TWO = 32'h40000000;                             // 2 
-    localparam  STAGE = 4;
 
+    localparam  [MAX_WIDTH - 1: 0]     P1_16 = 16'b0;                       
+    localparam  [MAX_WIDTH - 1: 0]     P1_32 = 32'b01000000001101001011010010110101;      // 2*c[0] = 43/17
+    localparam  [MAX_WIDTH - 1: 0]     P1_64 = 64'b0;
+
+    localparam  [MAX_WIDTH - 1: 0]     P2_16 = 16'b0;
+    localparam  [MAX_WIDTH - 1: 0]     P2_32 = 32'b10111111111100001111000011110001;      // -c[0]^2 = -32/17
+    localparam  [MAX_WIDTH - 1: 0]     P2_64 = 64'b0;
+
+    localparam  [MAX_WIDTH - 1: 0]     TWO_16 = 16'b0;
+    localparam  [MAX_WIDTH - 1: 0]     TWO_32 = 32'h40000000;                             // 2
+    localparam  [MAX_WIDTH - 1: 0]     TWO_64 = 64'b0;
+
+    localparam  P1 = 
+    (DATA_WIDTH == 16) ?        P1_16 :
+    (DATA_WIDTH == 32) ?        P1_32 :
+    (DATA_WIDTH == 64) ?        P1_64 : P1_32;
+    localparam  P2 = 
+    (DATA_WIDTH == 16) ?        P2_16 :
+    (DATA_WIDTH == 32) ?        P2_32 :
+    (DATA_WIDTH == 64) ?        P2_64 : P2_32;
+    localparam  TWO = 
+    (DATA_WIDTH == 16) ?        TWO_16 :
+    (DATA_WIDTH == 32) ?        TWO_32 :
+    (DATA_WIDTH == 64) ?        TWO_64 : TWO_32;
+
+    localparam                          STAGE = 4;              // Pipeline Stage
     reg         [STAGE - 1: 0]          signal;                 // Signal
 
     // ================ Caculate: c[1] ================ //
