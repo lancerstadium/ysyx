@@ -54,7 +54,7 @@ static struct rule {
 
   {"\\$[0-9a-z]+"  , TK_REG}, // register
   {"0x[0-9a-f]+"  , TK_HEX}, // hex
-  {"[0-9]+"  , TK_DEC},       // decimal
+  {"[0-9]+(u)?"  , TK_DEC},       // decimal
 
 
 
@@ -86,7 +86,8 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+#define TOKEN_MAX_LEN 1024
+static Token tokens[TOKEN_MAX_LEN] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -102,10 +103,10 @@ static bool make_token(char *e) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-
+#ifdef EXPR_LOG
         Log("match rules[%d] = `%s` at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
-
+#endif
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -149,7 +150,7 @@ static bool make_token(char *e) {
 
 static void flush_token() {
   nr_token = 0;
-  for (int i = 0; i < 32; i ++) {
+  for (int i = 0; i < TOKEN_MAX_LEN; i ++) {
     tokens[i].type = TK_NOTYPE;
     tokens[i].str[0] = '\0';
   }
@@ -186,12 +187,17 @@ static int find_op(int p, int q, bool* success) {
                     res_level = 2;
                 }
                 break;
-            case '*':
             case '/':
                 if (depth == 0 && res_level > 3) {
                     *success = true;
                     res = i;
                     res_level = 3;
+                }
+            case '*':
+                if (depth == 0 && res_level > 4) {
+                    *success = true;
+                    res = i;
+                    res_level = 4;
                 }
                 break;
         }
@@ -242,10 +248,10 @@ static word_t eval(int p, int q) {
             word_t a = eval(p, op - 1);
             word_t b = eval(op + 1, q);
             switch (tokens[op].type) {
-                case '+': return a + b;
-                case '-': return a - b;
-                case '*': return a * b;
-                case '/': return a / b;
+                case '+': return (unsigned)a + (unsigned)b;
+                case '-': return (unsigned)a - (unsigned)b;
+                case '*': return (unsigned)a * (unsigned)b;
+                case '/': return (unsigned)a / (unsigned)b;
                 case TK_EQ: return a == b;
                 case TK_NE: return a != b;
                 case TK_AND: return a && b;

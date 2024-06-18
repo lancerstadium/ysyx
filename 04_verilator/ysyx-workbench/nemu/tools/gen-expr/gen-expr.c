@@ -23,6 +23,10 @@
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
+static int parentheses_off = 0;
+static int gen_div_off = 0;
+static int gen_max_cnt = 30;
+static int gen_cnt = 0;
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
@@ -31,8 +35,56 @@ static char *code_format =
 "  return 0; "
 "}";
 
+uint32_t choose(uint32_t n) {
+    return rand() % n;
+}
+
+void gen(char c) {
+    char* buf_buf = strdup(buf);
+    int len = strlen(buf_buf);
+    if(c == ')') { 
+        if(parentheses_off > 0) { parentheses_off--; return; }
+    }
+    if((c == '(' && buf[len - 1] == 'u') || (c == '(' && buf[len - 1] == ')') || (c == '(' && buf[len - 1] == '(') || (c == '(' && buf[len - 1] == '/')) { parentheses_off++; return; }
+    sprintf(buf, "%s%c", buf_buf, c);
+}
+
+void gen_num() {
+    char* buf_buf = strdup(buf);
+    int len = strlen(buf_buf);
+    if(buf[len - 1] == 'u' || buf[len - 1] == ')') return;
+    sprintf(buf, "%s%uu", buf_buf, choose(8000));
+}
+
+void gen_rand_op() {
+    uint32_t pattern = choose(5);
+    if(gen_div_off > 0) { pattern = choose(3); }
+    switch(pattern) {
+        case 0: gen('+'); gen_div_off=0; break;
+        case 1: gen('-'); gen_div_off=0; break;
+        case 2: gen('*'); break;
+        case 3: gen('/'); gen_div_off=1; break;
+        default: break;
+    }
+}
+
 static void gen_rand_expr() {
-  buf[0] = '\0';
+  uint32_t pattern = choose(3);
+  if (gen_cnt >= gen_max_cnt) {
+      pattern = 0;
+  }
+  gen_cnt++;
+  switch(pattern) {
+    case 0: gen_num(); break;
+    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
+}
+
+static void buffer_clear() {
+  memset(buf, 0, sizeof(buf));
+  memset(code_buf, 0, sizeof(code_buf));
+  gen_cnt = 0;
 }
 
 int main(int argc, char *argv[]) {
@@ -62,8 +114,10 @@ int main(int argc, char *argv[]) {
     int result;
     ret = fscanf(fp, "%d", &result);
     pclose(fp);
-
-    printf("%u %s\n", result, buf);
+    if((unsigned int)result < 2147483647) {
+        printf("%u %s\n", result, buf);
+    }
+    buffer_clear();
   }
   return 0;
 }

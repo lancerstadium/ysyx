@@ -83,6 +83,40 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_tsp(char *args) {
+  char *sub = strtok(args, " ");
+  if (sub == NULL) {
+    printf("Usage: tsp [file]\n");
+  } else {
+    // 1. 读入文件
+    FILE *fp = fopen(sub, "r");
+    if (fp == NULL) {
+      printf("Open file %s failed.\n", sub);
+      return 0;
+    }
+    // 2. 读取每一行格式：`ref, exprisson` `int char*`
+    char line[1024];
+    while (fgets(line, 1024, fp) != NULL) {
+      char *p = line;
+      unsigned ref = atoi(strtok(p, " "));
+      char *exprisson = strtok(NULL, " ");
+      // 删除换行符
+      if (exprisson[strlen(exprisson) - 1] == '\n') {
+        exprisson[strlen(exprisson) - 1] = '\0';
+      }
+
+      bool success;
+      unsigned res = expr(exprisson, &success);
+      if (success && res == ref) {
+        printf("\033[0;32msucc:\033[0m %u == %u = %s\n",  res, ref, exprisson);
+      } else if (success && res != ref) {
+        printf("\033[0;31mfail:\033[0m %u != %u = %s\n",  res, ref, exprisson);
+      }
+    }
+  }
+  return 0;
+}
+
 static int cmd_p(char *args) {
   char *sub = strtok(args, " ");
   if (sub == NULL) {
@@ -117,6 +151,7 @@ static int cmd_d(char *args) {
 }
 
 static int cmd_q(char *args) {
+  nemu_state.state = NEMU_QUIT;
   return -1;
 }
 
@@ -132,6 +167,7 @@ static struct {
   { "info", "Info of [r/w]"                                     , cmd_info },
   { "si"  , "Single step execution [N]"                         , cmd_si   },
   { "p"   , "Caculate the value of [expr]"                      , cmd_p    },
+  { "tsp" , "Test exprs in [file]"                              , cmd_tsp  },
   { "x"   , "Scan Memory [N expr]"                              , cmd_x    },
   { "w"   , "Set watchpoint [expr]"                             , cmd_w    },
   { "d"   , "Delete watchpoint [N]"                             , cmd_d    },
